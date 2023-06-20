@@ -5,10 +5,11 @@ import { useSelector } from 'react-redux'
 const Rider = () => {
   const [userDetails, setUserDetails ] = useState({})
   const {id} =useSelector(state=>state.user)
+
+
   const fetchUserDetails = async()=> {
     const res =  await fetch('http://localhost:3001/users/'+id)
     const data = await res.json()
-
     setUserDetails(data.userList)
   }
   useEffect(()=>{
@@ -16,9 +17,7 @@ const Rider = () => {
   },[])
   return (
     <div>Rider
-      {userDetails.email}
-      {userDetails.phoneNumber}
-
+      
         <BasicMenu/>
         
     </div>

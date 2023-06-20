@@ -5,10 +5,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import {resetUser} from '../../redux/reducers/userSlice'
+import { useRouter } from 'next/navigation'
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import { useDispatch } from 'react-redux';
 
 export default function BasicMenu() {
+  const router = useRouter()
   const dispatch=  useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -41,7 +43,7 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={() => router.push('/profile')}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={()=>dispatch(resetUser())}>Logout</MenuItem>
       </Menu>
