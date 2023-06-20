@@ -25,7 +25,14 @@ const Map = ()=> {
      // ,
     // ...otherOptions
   })
+  const handlePickUpChange =(e)=> {
+    const locationCoords = {
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng()
 
+    }
+    console.log(locationCoords)
+  }
   const {pickupCoord} = useSelector(state=>state.location)
   if(isLoaded){
     return (
@@ -38,6 +45,7 @@ const Map = ()=> {
       >
          <MarkerF
          draggable={true}
+         onDragEnd={handlePickUpChange}
           // onLoad={onLoad}
           position={pickupCoord}
         />
