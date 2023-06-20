@@ -20,7 +20,7 @@ const center = {
 const Map = ()=> {
   
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "",
+    googleMapsApiKey: "AIzaSyDLfjmFgDEt9_G2LXVyP61MZtVHE2M3H-0",
     libraries: ['places']
      // ,
     // ...otherOptions

@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import {setUserDetails} from '../../redux/reducers/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
+import Img from '@/components/Image';
+
+
 const Login = ( )=> {
   const router = useRouter()
   const [error, setError] = useState('')
@@ -32,11 +35,9 @@ const Login = ( )=> {
     
      
     }
-
- 
     return (
         <div>
-   
+          <Img/>
         <Formik
           initialValues={{
             phoneNumber: '',
