@@ -1,5 +1,6 @@
 const User = require('../model/user')
 const saltRounds = 10;
+const saltNextRound = 12;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -80,7 +81,24 @@ const getAllUser =  async (req,res)=>{
   // }
   //compare oldPassword with current valid password
 //true=> 
-//
+  // console.log(req )
+  const data = await User.findOne({phoneNumber: req.body.phoneNumber})
+  const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
+  if (comparePassword){
+    const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
+    req.body.newPassword = newHashPassword
+    const data = await User.create(req.body)
+    if (data){ 
+      res.json({
+        msg: 'change password'
+      })
+    }
+  }else{
+    res.json({
+      msg: 'invalid password'
+    })
+  }
+
 }
  
   module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword}
