@@ -12,7 +12,7 @@ const resetPassword = ( )=> {
     const triggerLogin = async(values)=>{
       try{
             const requestOptions = {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values)
       };
@@ -38,6 +38,7 @@ const resetPassword = ( )=> {
    
         <Formik
           initialValues={{
+            phoneNumber: '',
             oldPassword: '',
             newPassword: '',
             confirmPassword: ''
@@ -49,6 +50,11 @@ const resetPassword = ( )=> {
         >
           {({ errors, touched }) => (
             <Form>
+              <Field name="phoneNumber" placeholder="phoneNumber"/>
+              {errors.phoneNumber && touched.phoneNumber ? (
+                <div>{errors.phoneNumber}</div>
+              ) : null}
+              <br/>
               <Field name="oldPassword" type="password" placeholder="Current Password"/>
               {errors.oldPassword && touched.oldPassword ? (
                 <div>{errors.oldPassword}</div>
