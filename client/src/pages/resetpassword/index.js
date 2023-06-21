@@ -1,10 +1,9 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {useState} from 'react'
-import Link from 'next/link';
-
 import {setUserDetails} from '../../redux/reducers/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
+
 const resetPassword = ( )=> {
  
   const [error, setError] = useState('')
@@ -41,6 +40,7 @@ const resetPassword = ( )=> {
           initialValues={{
             oldPassword: '',
             newPassword: '',
+            confirmPassword: ''
           }}
           onSubmit={values => {
             triggerLogin(values)
@@ -59,10 +59,13 @@ const resetPassword = ( )=> {
                 <div>{errors.newPassword}</div>
               ) : null}
               <br/>
+              <Field name="confirmPassword" type="password" placeholder="Confirm password"/>
+              {errors.confirmPassword && touched.confirmPassword? (
+                <div>{errors.confirmPassword}</div>
+              ) : null}
               <span style={{color:'crimson'}}>{error}</span>
               <br/>
               <button type="submit">Submit</button>
-             Dont have an account yet ?   <Link href="/register">Sign Up</Link>
             </Form>
           )}
         </Formik>
