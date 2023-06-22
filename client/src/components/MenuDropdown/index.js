@@ -44,7 +44,7 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={()=>router.push('/myaccount')}>My account</MenuItem>
+        <MenuItem onClick={()=>router.push('/myaccount/')}>My account</MenuItem>
         <MenuItem onClick={()=>dispatch(resetUser())}>Logout</MenuItem>
       </Menu>
     </div>
