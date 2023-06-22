@@ -1,7 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
-import { Style } from '../../styles/users.module.css';
 const Register = ( )=> {
     return (
         <div className='register page' style={{ textAlign: 'center' }}>

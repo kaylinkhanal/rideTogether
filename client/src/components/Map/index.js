@@ -3,7 +3,6 @@ import { GoogleMap, LoadScript, MarkerF,useLoadScript, Autocomplete } from '@rea
 import SearchBox from '../SearchBox'
 import MenuDropdown from '../MenuDropdown'
 import FloatingIcon from '../FloatingIcon'
-import styles from '../../styles/users.module.css'
 import MiniDrawer from '../Drawer';
 import { useSelector } from 'react-redux';
 

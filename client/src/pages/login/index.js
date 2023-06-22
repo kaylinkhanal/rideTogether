@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { setUserDetails } from '../../redux/reducers/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { style } from '../../styles/users.module.css';
+import styles from '../../styles/login.module.css'
 import { Input } from 'postcss';
 
 const Login = () => {
@@ -34,9 +34,8 @@ const Login = () => {
   };
 
   return (
-    <div className='login page' style={{ textAlign: 'center' }}>
-      <div className='login_form'>
-        <link rel='stylesheet' type='text/css' href='css/style.css'/>
+    <div className={styles['form-container']} >
+      <div className={styles['login_form']}>
       <Formik
         initialValues={{
           phoneNumber: '',
@@ -52,7 +51,7 @@ const Login = () => {
       >
         {({ errors, touched }) => (
           <Form>
-            <h2 className="form-signin-heading">Please login</h2>
+            <h2 className={styles['form-signin-heading']}>Please login</h2>
             <Field name="phoneNumber" placeholder="Phone Number" />
             {errors.phoneNumber && touched.phoneNumber ? <div>{errors.phoneNumber}</div> : null}
             <br />
@@ -62,7 +61,7 @@ const Login = () => {
             <br />
             <span style={{ color: 'crimson' }}>{error}</span>
             <br />
-            <button className="btn btn-lg btn-primary btn-block" type="submit">
+            <button className={styles['btn btn-lg btn-primary btn-block']}  type="submit">
            Login
             </button>
             <br />
