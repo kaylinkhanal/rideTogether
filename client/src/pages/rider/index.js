@@ -20,13 +20,10 @@ const Rider = () => {
   },[])
   return (
     <div>Rider
-<<<<<<< HEAD
       <div className={styles.MenueDropdwn}/>
       <Drawer/>
-=======
       
         <BasicMenu/>
->>>>>>> dc4d3c16e3329d2a234f5e44b68b5c1e9c408287
         
     </div>
   )
