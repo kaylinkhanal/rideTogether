@@ -72,28 +72,42 @@ const getAllUser =  async (req,res)=>{
      })
    }
  }
+ const changePasswordById = async(req, res) =>{ 
+  // console.log(req.params.id)
+  const data = await User.findById(req.params.id)
+   if(data){
+     res.json({
+     userList: data
+     })
+   }
+}
 
  const changePassword = async (req,res)=>{
-  const data = await User.findOne({phoneNumber: req.body.phoneNumber})
-  const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
-  if (comparePassword){
-    const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
-    req.body.newPassword = newHashPassword
-    const updatedPassword = await User.findByIdAndUpdate(
-      {_id: '64900c813789616a761697d7'},
-      {password: newHashPassword}
-      )
-    if (updatedPassword){ 
+  try{ 
+    console.log(req.params.id)
+    const data = await User.findOne({phoneNumber: req.body.phoneNumber})
+    const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
+    if (data && comparePassword){
+      const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
+      req.body.newPassword = newHashPassword
+      const updatedPassword = await User.findByIdAndUpdate(
+        {_id: req.params.id},
+        {password: newHashPassword}
+        )
+      if (updatedPassword){ 
+        res.json({
+          msg: 'change password'
+        })
+      }
+    }else{
       res.json({
-        msg: 'change password'
+        msg: 'invalid password'
       })
     }
-  }else{
-    res.json({
-      msg: 'invalid password'
-    })
+  }catch(err){
+    console.log(err.message)
   }
-
 }
  
-  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword}
+
+  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword, changePasswordById}
