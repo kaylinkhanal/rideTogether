@@ -42,7 +42,7 @@ export default function BasicMenu() {
       >
 
         <Stack direction="row" spacing={2}>
-            <Avatar>H</Avatar>
+            <Avatar style={{backgroundColor:'#000'}}>H</Avatar>
             
      
   

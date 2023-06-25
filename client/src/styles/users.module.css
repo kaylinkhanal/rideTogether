@@ -5,6 +5,13 @@
     position: absolute;
 }
 
+.chipList{
+    margin-top: -35px;
+    position: absolute;
+    float: right;
+    margin-left: 60%;
+}
+
 .searchBox  {
     display: block;
     margin-top: 53px;
@@ -14,8 +21,4 @@
 .MenueDropdwn {
 color: black;
 background-color: gray;
-}
-.MenuIcon {
-    float:right;
-
 }

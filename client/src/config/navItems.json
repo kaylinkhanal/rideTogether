@@ -1,0 +1,16 @@
+{
+"user":{
+    "navItems": [
+        {"navName":"Home", "link": "/"},
+        {"navName":"Vehicles", "link": "/Vehicles"},
+        {"navName":"Ride History", "link": "/rides"}
+]
+},
+"admin":{
+    "navItems": [
+        {"navName":"Home", "link": "/"},
+        {"navName":"User Management", "link": "/usermanagement"},
+        {"navName":"Rides History", "link": "/rides"}
+]
+}
+}

@@ -26,11 +26,6 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-.toolbar{
-  display: flex;
-  color:black;
-  background-color: gray;
-}
 
 
 .userDetails{

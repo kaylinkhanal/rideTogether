@@ -23,7 +23,8 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenueDropdwn from '../MenuDropdown'
-
+import navItems from '../../config/navItems'
+import { useSelector } from 'react-redux';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -72,6 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+ const {role} = useSelector(state=>state.user)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -103,8 +105,8 @@ export default function PersistentDrawerLeft() {
         
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Rider
+          <Typography variant="h6" noWrap component="div" style={{width:'100%'}}>
+            {role}
           </Typography>
           <MenueDropdwn/>
         </Toolbar>
@@ -134,8 +136,7 @@ export default function PersistentDrawerLeft() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                {index % 2 === 0 ?  <SettingsIcon/>: <AirportShuttleIcon /> }
-                  {index % 2 === 0 ?<TwoWheelerIcon />  : <LocalTaxiIcon/> }
+             <TwoWheelerIcon />  
                   
                 </ListItemIcon>
 
