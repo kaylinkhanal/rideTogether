@@ -8,7 +8,8 @@ import InputBase from '@mui/material/InputBase';
 import styles from '../../styles/users.module.css'
 import MiniDrawer from '../Drawer';
 import { useSelector, useDispatch } from 'react-redux';
-
+import {Chip,Stack,Fab} from '@mui/material';
+import NavigationIcon from '@mui/icons-material/Navigation';
 const containerStyle = {
   width: '100vw',
   height: '100vh'
@@ -57,6 +58,14 @@ const Map = ()=> {
         zoom={14}
         // onLoad={onLoad}
       >
+       
+        
+         <MarkerF
+         draggable={true}
+         onDragEnd={handlePickUpChange}
+          // onLoad={onLoad}
+          position={pickupCoord}
+        />
          <MarkerF
          draggable={true}
          onDragEnd={handlePickUpChange}
@@ -64,9 +73,21 @@ const Map = ()=> {
           position={pickupCoord}
         />
         <div className={styles.searchBox}> 
+        <div className={styles.chipList}>
        
+          <Stack direction="row" spacing={1}>
+            <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+            <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+            <Fab variant="extended">
+              <NavigationIcon sx={{ mr: 1 }} />
+               Pickup
+            </Fab>
+          </Stack>
+     
+        </div>
  
        <div className={styles.basicMenu}>
+        
     <MenuDropdown/>
     <FloatingIcon/>
    
@@ -88,8 +109,18 @@ const Map = ()=> {
         <Autocomplete onPlaceChanged={()=> handlePlaceChange()} >
       <input
       ref={ref}
+      style={{width:'200px'}}
       onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
-      placeholder="ENTER ADDRESS" value={pickupAddress} />
+      placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
+      </Autocomplete>
+
+
+      <Autocomplete onPlaceChanged={()=> handlePlaceChange()} >
+      <input
+      ref={ref}
+      style={{width:'200px'}}
+      onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
+      placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
       </Autocomplete>
         </div>
       
