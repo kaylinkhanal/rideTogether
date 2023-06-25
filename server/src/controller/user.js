@@ -74,13 +74,16 @@ const getAllUser =  async (req,res)=>{
  }
 
  const changePassword = async (req,res)=>{
+  //first we need to find if the phoneNumber entered exists
   const data = await User.findOne({phoneNumber: req.body.phoneNumber})
+  console.log(data)
+  // old password should match db password
   const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
-  if (comparePassword){
+  if (comparePassword && data){
     const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
     req.body.newPassword = newHashPassword
     const updatedPassword = await User.findByIdAndUpdate(
-      {_id: '64900c813789616a761697d7'},
+      {_id: req.params.id},
       {password: newHashPassword}
       )
     if (updatedPassword){ 
