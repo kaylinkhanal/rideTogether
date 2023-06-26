@@ -4,13 +4,17 @@ export const initialState = {
   pickupCoord: {
  
   },
-  pickupAddress: ''
+  pickupAddress: '',
+  dropCoord: {
+ 
+  },
+  dropAddress: ''
 };
 const LocationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {
-    setLocation: (state, actions) => {
+    setPickUpCoords: (state, actions) => {
       return {
         ...state,
         pickupCoord: actions.payload
@@ -22,8 +26,20 @@ const LocationSlice = createSlice({
         pickupAddress: actions.payload
       }
     },
+    setDropCoords: (state, actions) => {
+      return {
+        ...state,
+        dropCoord: actions.payload
+      }
+    },
+    changeDropAddress: (state, actions) => {
+      return {
+        ...state,
+        dropAddress: actions.payload
+      }
+    },
  
   }
 });
-export const { setLocation,changePickUpAddress } = LocationSlice.actions;
+export const { setPickUpCoords,changePickUpAddress,changeDropAddress, setDropCoords } = LocationSlice.actions;
 export default LocationSlice.reducer;

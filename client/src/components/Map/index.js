@@ -1,8 +1,8 @@
-import React, { Component, useRef } from 'react';
+import React, { Component, useRef, useState } from 'react';
 import { GoogleMap, LoadScript, MarkerF,useLoadScript, Autocomplete } from '@react-google-maps/api';
 import SearchBox from '../SearchBox'
 import MenuDropdown from '../MenuDropdown'
-import {setLocation ,changePickUpAddress} from '../../redux/reducers/locationSlice'
+import {setPickUpCoords ,changePickUpAddress, setDropCoords,changeDropAddress } from '../../redux/reducers/locationSlice'
 import FloatingIcon from '../FloatingIcon'
 import InputBase from '@mui/material/InputBase';
 import styles from '../../styles/users.module.css'
@@ -18,15 +18,17 @@ const containerStyle = {
 
 const Map = ()=> {
   const ref = useRef(null)
+  const ref2 = useRef(null)
+  const [formStep, setFormStep] = useState(1)
   const dispatch =useDispatch()
-  const {pickupAddress} =useSelector(state=>state.location)
+  const {pickupCoord, pickupAddress, dropAddress, dropCoord} = useSelector(state=>state.location)
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDLfjmFgDEt9_G2LXVyP61MZtVHE2M3H-0",
     libraries: ['places']
      // ,
     // ...otherOptions
   })
-  const handlePlaceChange = async() => {
+  const handlePlacePickUpChange = async() => {
     dispatch(changePickUpAddress(ref.current.value))
     const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
     const data =await res.json()
@@ -34,7 +36,18 @@ const Map = ()=> {
       lat: data.features[0].properties.lat,
       lng: data.features[0].properties.lon
     }
-    dispatch(setLocation(cords))
+    dispatch(setPickUpCoords(cords))
+    
+  }
+  const handlePlaceDropChange = async() => {
+    dispatch(changeDropAddress(ref2.current.value))
+    const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
+    const data =await res.json()
+    const cords = {
+      lat: data.features[0].properties.lat,
+      lng: data.features[0].properties.lon
+    }
+    dispatch(setDropCoords(cords))
     
   }
   const handlePickUpChange =async(e)=> {
@@ -46,9 +59,21 @@ const Map = ()=> {
     const res = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${locationCoords.lat}&lon=${locationCoords.lng}&apiKey=a1dd45a7dfc54f55a44b69d125722fcb`)
     const data =await res.json()
     dispatch(changePickUpAddress(data.features[0].properties.formatted))
-   dispatch(setLocation(locationCoords))
+   dispatch(setPickUpCoords(locationCoords))
   }
-  const {pickupCoord} = useSelector(state=>state.location)
+
+  const handleDropChange =async(e)=> {
+    const locationCoords = {
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng()
+
+    }
+    const res = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${locationCoords.lat}&lon=${locationCoords.lng}&apiKey=a1dd45a7dfc54f55a44b69d125722fcb`)
+    const data =await res.json()
+    dispatch(changeDropAddress(data.features[0].properties.formatted))
+   dispatch(setDropCoords(locationCoords))
+  }
+
   if(isLoaded){
     return (
       
@@ -59,30 +84,44 @@ const Map = ()=> {
         // onLoad={onLoad}
       >
        
-        
-         <MarkerF
-         draggable={true}
-         onDragEnd={handlePickUpChange}
-          // onLoad={onLoad}
-          position={pickupCoord}
-        />
-         <MarkerF
-         draggable={true}
-         onDragEnd={handlePickUpChange}
-          // onLoad={onLoad}
-          position={pickupCoord}
-        />
+          {formStep == 1  ? (
+          <MarkerF
+          draggable={true}
+          onDragEnd={handlePickUpChange}
+            // onLoad={onLoad}
+            position={pickupCoord}
+          />
+          ): (
+            <MarkerF
+            draggable={true}
+            onDragEnd={handleDropChange}
+             // onLoad={onLoad}
+             position={dropCoord}
+           />
+          )}
+    
+      
+            
         <div className={styles.searchBox}> 
         <div className={styles.chipList}>
-       
-          <Stack direction="row" spacing={1}>
+        
+            <Stack direction="row" spacing={1}>
             <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
             <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
-            <Fab variant="extended">
-              <NavigationIcon sx={{ mr: 1 }} />
-               Pickup
+            </Stack>
+            {formStep == 1 ? (
+            <Fab variant="extended" onClick={()=>setFormStep(2)} >
+              <NavigationIcon  sx={{ mr: 1 }} />
+              Pickup
             </Fab>
-          </Stack>
+      
+            ) : (
+              <Fab variant="extended" onClick={()=>setFormStep(2)} >
+              <NavigationIcon  sx={{ mr: 1 }} />
+              Send Request
+            </Fab>
+            )}
+      
      
         </div>
  
@@ -106,22 +145,28 @@ const Map = ()=> {
                 left: "40%",
                 marginTop:'-30px'
               }}>
-        <Autocomplete onPlaceChanged={()=> handlePlaceChange()} >
-      <input
-      ref={ref}
-      style={{width:'200px'}}
-      onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
-      placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
-      </Autocomplete>
 
+                {formStep == 1 ? (
+                  <Autocomplete onPlaceChanged={()=> handlePlacePickUpChange()} >
+                  <input
+                  ref={ref}
+                  style={{width:'200px'}}
+                  onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
+                  placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
+                  </Autocomplete>
+ 
+                ): (
+                  <Autocomplete onPlaceChanged={()=> handlePlaceDropChange()} >
+                  <input
+                  ref={ref2}
+                  style={{width:'200px'}}
+                  onChange={(e)=>  dispatch(changeDropAddress(e.target.value))}
+                  placeholder="ENTER PICKUP ADDRESS" value={dropAddress} />
+                  </Autocomplete>
+                )} 
+ 
 
-      <Autocomplete onPlaceChanged={()=> handlePlaceChange()} >
-      <input
-      ref={ref}
-      style={{width:'200px'}}
-      onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
-      placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
-      </Autocomplete>
+     
         </div>
       
      
