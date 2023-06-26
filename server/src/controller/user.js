@@ -26,7 +26,6 @@ const jwt = require('jsonwebtoken');
       // getnerate a token for the user
       if(isMatched){
         const token = jwt.sign({ phoneNumber:  req.body.phoneNumber }, process.env.SECRET_KEY);
-        console.log(token)
         res.json({
         isLoggedIn: true,
         phoneNumber: data.phoneNumber,
@@ -72,41 +71,30 @@ const getAllUser =  async (req,res)=>{
      })
    }
  }
- const changePasswordById = async(req, res) =>{ 
-  // console.log(req.params.id)
-  const data = await User.findById(req.params.id)
-   if(data){
-     res.json({
-     userList: data
-     })
-   }
-}
-
- const changePassword = async (req,res)=>{
-  try{ 
-    console.log(req.params.id)
-    const data = await User.findOne({phoneNumber: req.body.phoneNumber})
-    const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
-    if (data && comparePassword){
-      const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
-      req.body.newPassword = newHashPassword
-      const updatedPassword = await User.findByIdAndUpdate(
-        {_id: req.params.id},
-        {password: newHashPassword}
-        )
-      if (updatedPassword){ 
-        res.json({
-          msg: 'change password'
-        })
-      }
-    }else{
+ 
+const changePassword = async (req,res)=>{
+  //first we need to find if the phoneNumber entered exists
+  const data = await User.findOne({phoneNumber: req.body.phoneNumber})
+  // old password should match db password
+  const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
+  if (comparePassword && data){
+    const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
+    req.body.newPassword = newHashPassword
+    const updatedPassword = await User.findByIdAndUpdate(
+      {_id: req.params.id},
+      {password: newHashPassword}
+      )
+    if (updatedPassword){ 
       res.json({
-        msg: 'invalid password'
+        msg: 'change password'
       })
     }
-  }catch(err){
-    console.log(err.message)
+  }else{
+    res.json({
+      msg: 'invalid password'
+    })
   }
+
 }
  
 
