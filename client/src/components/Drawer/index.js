@@ -5,6 +5,7 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import { useRouter } from 'next/navigation'
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -73,6 +74,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+  const router = useRouter()
  const {role} = useSelector(state=>state.user)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -132,15 +134,12 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
 
         <List>
-          {['MoterBike', 'Van', 'Taxi', 'Setting'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {role && navItems?.[role]?.navItems?.map((item, index) => (
+            <ListItem onClick={()=>router.push(item.link)} key={item.navName} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-             <TwoWheelerIcon />  
-                  
-                </ListItemIcon>
+              
 
-                <ListItemText primary={text} />
+                <ListItemText primary={item.navName} />
               </ListItemButton> 
             </ListItem>
           ))}

@@ -22,3 +22,11 @@
 color: black;
 background-color: gray;
 }
+
+.priceDiv{
+    background-color: #fff;
+    padding: 20px;
+    height: 120px;
+    border-radius: 5px;
+}   
+    

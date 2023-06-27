@@ -116,10 +116,15 @@ const Map = ()=> {
             </Fab>
       
             ) : (
-              <Fab variant="extended" onClick={()=>setFormStep(2)} >
+              <div>
+                <div className={styles.priceDiv}>
+                  </div>
+                 <Fab variant="extended" onClick={()=>setFormStep(2)} >
               <NavigationIcon  sx={{ mr: 1 }} />
               Send Request
             </Fab>
+                </div>
+             
             )}
       
      

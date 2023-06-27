@@ -10,14 +10,23 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import { useEffect } from 'react';
 
 const actions = [
-  { icon: <TwoWheelerIcon />, name: 'MotorBike' },
-  { icon: <AirportShuttleIcon />, name: 'Van' },
-  { icon: <LocalTaxiIcon />, name: 'Taxi' },
+  {  name: 'MotorBike' },
+  {  name: 'Van' },
+  {  name: 'Taxi' },
 ];
 
 export default function BasicSpeedDial() {
+  const fetchUserDetails = async()=> {
+    const res =  await fetch('http://localhost:3001/vehicles')
+    const data = await res.json()
+    console.log(DataTransfer)
+  }
+  useEffect(()=>{
+    fetchUserDetails()
+  },[])
   return (
     <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
       <SpeedDial
