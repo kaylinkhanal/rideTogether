@@ -10,37 +10,38 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
+import Image from 'next/image';
 
-const actions = [
-  {  name: 'MotorBike' },
-  {  name: 'Van' },
-  {  name: 'Taxi' },
-];
+
 
 export default function BasicSpeedDial() {
+  const [vehicleTypeList, setvehicleTypeList] = useState([])
   const fetchUserDetails = async()=> {
     const res =  await fetch('http://localhost:3001/vehicles')
     const data = await res.json()
-    console.log(DataTransfer)
+    setvehicleTypeList(data.vehicleList)
   }
   useEffect(()=>{
     fetchUserDetails()
   },[])
   return (
     <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+
       <SpeedDial
       direction='down'
         ariaLabel="SpeedDial basic example"
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<TwoWheelerIcon/>}
       >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
+        {vehicleTypeList.map((item) => (
+          <div>
+            {item.vehicleType}
+            <Image src={'http://localhost:3001/getVechicleTypeImage/'+item._id}
+              width={30}
+              height={30}
+            />
+          </div>
         ))}
       </SpeedDial>
     </Box>

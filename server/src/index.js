@@ -8,12 +8,9 @@ const connectDb = require('./dbConnect/connection')
 const productRoute=require('./routes/product')
 const userRoute=require('./routes/user')
 const vehicleRoute=require('./routes/vehicles')
-var fs = require('fs');
 
-fs.writeFile('mynewfile3.txt', 'Hello content!', function (err) {
-  if (err) throw err;
-  console.log('Saved!');
-});
+
+
 
 
 connectDb()
