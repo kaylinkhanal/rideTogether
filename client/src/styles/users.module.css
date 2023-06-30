@@ -5,8 +5,28 @@
     position: absolute;
 }
 
+.chipList{
+    margin-top: -35px;
+    position: absolute;
+    float: right;
+    margin-left: 60%;
+}
+
 .searchBox  {
     display: block;
     margin-top: 53px;
     background-color: #fff;
 }
+
+.MenueDropdwn {
+color: black;
+background-color: gray;
+}
+
+.priceDiv{
+    background-color: #fff;
+    padding: 20px;
+    height: 120px;
+    border-radius: 5px;
+}   
+    

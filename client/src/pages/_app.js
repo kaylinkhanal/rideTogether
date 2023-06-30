@@ -1,8 +1,8 @@
-import '@/styles/globals.css'
 import { Provider } from "react-redux";
 import { persistor, store } from "../redux/store";
 import { PersistGate } from 'redux-persist/integration/react';;
-
+import "../styles/globals.css"
+import "@/styles/users.module.css"
 export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>

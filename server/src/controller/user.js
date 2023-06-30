@@ -72,5 +72,15 @@ const getAllUser =  async (req,res)=>{
      })
    }
  }
+
+ const changePassword = async (req,res)=>{
+  // {
+  //   oldPassword: 'hello@123',
+  //   newPassword: 'hello@123456'
+  // }
+  //compare oldPassword with current valid password
+//true=> 
+//
+}
  
-  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById}
+  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword}
