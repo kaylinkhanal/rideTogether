@@ -4,7 +4,7 @@ import SearchBox from '../SearchBox'
 import MenuDropdown from '../MenuDropdown'
 import {setPickUpCoords ,changePickUpAddress, setDropCoords,changeDropAddress } from '../../redux/reducers/locationSlice'
 import FloatingIcon from '../FloatingIcon'
-import InputBase from '@mui/material/InputBase';
+import {InputBase,Paper} from '@mui/material';
 import styles from '../../styles/users.module.css'
 import MiniDrawer from '../Drawer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -147,17 +147,27 @@ const Map = ()=> {
                 outline: `none`,
                 textOverflow: `ellipses`,
                 position: "absolute",
-                left: "40%",
+                left: "30%",
                 marginTop:'-30px'
               }}>
 
                 {formStep == 1 ? (
                   <Autocomplete onPlaceChanged={()=> handlePlacePickUpChange()} >
-                  <input
-                  ref={ref}
-                  style={{width:'200px'}}
-                  onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
-                  placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
+                    <Paper
+                      component="form"
+                      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                    >
+                    <InputBase
+                     sx={{ ml: 1, flex: 1 }}
+                     placeholder=" Search Google Maps"
+                     inputProps={{ 'aria-label': 'search google maps' }}
+                     ref={ref}
+                     style={{width:'200px'}}
+                     onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
+                     value={pickupAddress}
+                    /> 
+                    </Paper>
+               
                   </Autocomplete>
  
                 ): (
