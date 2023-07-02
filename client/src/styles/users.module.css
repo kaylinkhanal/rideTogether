@@ -30,3 +30,9 @@ background-color: gray;
     border-radius: 5px;
 }   
     
+
+.SpeedDial{
+    border: 1px solid;
+    border-radius: 40px;
+    background-color: cornflowerblue;
+}
