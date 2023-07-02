@@ -4,7 +4,8 @@ export const initialState = {
   token: '',
   id: '',
   role: '',
-  phoneNumber: ''
+  phoneNumber: '',
+  userVehicleType: {}
 };
 const UserSlice = createSlice({
   name: "user",
@@ -22,7 +23,13 @@ const UserSlice = createSlice({
     resetUser:  (state, actions) => {
       return {...initialState}
    },
+   changeVehicleType:  (state, actions) => {
+    return {
+      ...state,
+      userVehicleType: actions.payload
+    }
+ },
   }
 });
-export const { setUserDetails,resetUser } = UserSlice.actions;
+export const { setUserDetails,resetUser,changeVehicleType } = UserSlice.actions;
 export default UserSlice.reducer;

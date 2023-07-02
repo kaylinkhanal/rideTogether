@@ -1,5 +1,6 @@
 const Vehicle = require('../model/vehicle')
-
+const path = require('path');
+const fs = require('fs')
  const addNewVehicle=  async (req,res)=>{
   console.log(req.file.filename)
   req.body.vehicleImage = req.file.filename
@@ -22,10 +23,4 @@ const Vehicle = require('../model/vehicle')
       })
     }
   }
-
-  const getVechicleTypeImage = async (req,res)=>{
-    console.log(req.params)
-  }
-
-
-  module.exports = {addNewVehicle, getAllVehicles, getVechicleTypeImage}
+  module.exports = {addNewVehicle, getAllVehicles}

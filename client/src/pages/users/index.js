@@ -8,7 +8,7 @@ const Users = () => {
     <div>
   
 
-      <Map/>
+      <Map showAllButtons={true}/>
       </div>
   )
 }

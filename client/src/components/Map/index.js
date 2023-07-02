@@ -6,22 +6,30 @@ import {setPickUpCoords ,changePickUpAddress, setDropCoords,changeDropAddress } 
 import FloatingIcon from '../FloatingIcon'
 import InputBase from '@mui/material/InputBase';
 import styles from '../../styles/users.module.css'
+import { useRouter } from 'next/navigation'
+
+
 import MiniDrawer from '../Drawer';
 import { useSelector, useDispatch } from 'react-redux';
 import {Chip,Stack,Fab} from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
+
 const containerStyle = {
   width: '100vw',
   height: '100vh'
 };
 
 
-const Map = ()=> {
+const Map = (props)=> {
+  const router = useRouter()
   const ref = useRef(null)
   const ref2 = useRef(null)
   const [formStep, setFormStep] = useState(1)
   const dispatch =useDispatch()
   const {pickupCoord, pickupAddress, dropAddress, dropCoord} = useSelector(state=>state.location)
+  const {userVehicleType} = useSelector(state=>state.user)
+
+  
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDLfjmFgDEt9_G2LXVyP61MZtVHE2M3H-0",
     libraries: ['places']
@@ -40,14 +48,19 @@ const Map = ()=> {
     
   }
   const handlePlaceDropChange = async() => {
-    dispatch(changeDropAddress(ref2.current.value))
-    const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
-    const data =await res.json()
-    const cords = {
-      lat: data.features[0].properties.lat,
-      lng: data.features[0].properties.lon
+    try{
+      dispatch(changeDropAddress(ref2.current.value))
+      const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref2.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
+      const data =await res.json()
+      const cords = {
+        lat: data.features[0].properties.lat,
+        lng: data.features[0].properties.lon
+      }
+      dispatch(setDropCoords(cords))
+    }catch(err){
+      console.log(err)
     }
-    dispatch(setDropCoords(cords))
+  
     
   }
   const handlePickUpChange =async(e)=> {
@@ -84,95 +97,104 @@ const Map = ()=> {
         // onLoad={onLoad}
       >
        
-          {formStep == 1  ? (
+          {(formStep == 1 || !props.showAllButtons ) &&  (
           <MarkerF
-          draggable={true}
+          draggable={props.showAllButtons}
           onDragEnd={handlePickUpChange}
             // onLoad={onLoad}
             position={pickupCoord}
           />
-          ): (
+          )}
+         { (formStep ==2 || !props.showAllButtons)  && (
             <MarkerF
-            draggable={true}
+            draggable={props.showAllButtons}
             onDragEnd={handleDropChange}
              // onLoad={onLoad}
              position={dropCoord}
            />
-          )}
+         )}
+     
     
-      
+          {props.showAllButtons && (
+            <div>
+              <div className={styles.searchBox}> 
+              <div className={styles.chipList}>
+              
+                  <Stack direction="row" spacing={1}>
+                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+                  </Stack>
+                  {formStep == 1 ? (
+                  <Fab variant="extended" onClick={()=>setFormStep(2)} >
+                    <NavigationIcon  sx={{ mr: 1 }} />
+                    Pickup
+                  </Fab>
+
             
-        <div className={styles.searchBox}> 
-        <div className={styles.chipList}>
-        
-            <Stack direction="row" spacing={1}>
-            <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
-            <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
-            </Stack>
-            {formStep == 1 ? (
-            <Fab variant="extended" onClick={()=>setFormStep(2)} >
-              <NavigationIcon  sx={{ mr: 1 }} />
-              Pickup
-            </Fab>
-      
-            ) : (
-              <div>
-                <div className={styles.priceDiv}>
-                  </div>
-                 <Fab variant="extended" onClick={()=>setFormStep(2)} >
-              <NavigationIcon  sx={{ mr: 1 }} />
-              Send Request
-            </Fab>
-                </div>
-             
-            )}
-      
-     
-        </div>
- 
-       <div className={styles.basicMenu}>
-        
-    <MenuDropdown/>
-    <FloatingIcon/>
-   
-    </div>
-   
-        </div>
-        <div  style={{
-                boxSizing: `border-box`,
-                border: `1px solid transparent`,
-                padding: `0 12px`,
-                borderRadius: `3px`,
-                fontSize: `14px`,
-                outline: `none`,
-                textOverflow: `ellipses`,
-                position: "absolute",
-                left: "40%",
-                marginTop:'-30px'
-              }}>
+                  ) : (
+                    <div>
+                    
+                      <Fab variant="extended"  onClick={()=>router.push('/users/map-details')}  >
+                    <NavigationIcon  sx={{ mr: 1 }} />
+                    Confirm Destination
+                  </Fab>
+                  <Fab variant="extended" onClick={()=>setFormStep(1)} >
+                    <NavigationIcon  sx={{ mr: 1 }} />
+                    Back
+                  </Fab>
+                      </div>
+                  
+                  )}
+                  
+              </div>
 
-                {formStep == 1 ? (
-                  <Autocomplete onPlaceChanged={()=> handlePlacePickUpChange()} >
-                  <input
-                  ref={ref}
-                  style={{width:'200px'}}
-                  onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
-                  placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
-                  </Autocomplete>
- 
-                ): (
-                  <Autocomplete onPlaceChanged={()=> handlePlaceDropChange()} >
-                  <input
-                  ref={ref2}
-                  style={{width:'200px'}}
-                  onChange={(e)=>  dispatch(changeDropAddress(e.target.value))}
-                  placeholder="ENTER PICKUP ADDRESS" value={dropAddress} />
-                  </Autocomplete>
-                )} 
- 
+            <div className={styles.basicMenu}>
+              
+          <MenuDropdown/>
+          <FloatingIcon/>
 
-     
-        </div>
+          </div>
+
+              </div>
+              <div  style={{
+                      boxSizing: `border-box`,
+                      border: `1px solid transparent`,
+                      padding: `0 12px`,
+                      borderRadius: `3px`,
+                      fontSize: `14px`,
+                      outline: `none`,
+                      textOverflow: `ellipses`,
+                      position: "absolute",
+                      left: "40%",
+                      marginTop:'-30px'
+                    }}>
+
+                      {formStep == 1 ? (
+                        <Autocomplete onPlaceChanged={()=> handlePlacePickUpChange()} >
+                        <input
+                        ref={ref}
+                        style={{width:'200px'}}
+                        onChange={(e)=>  dispatch(changePickUpAddress(e.target.value))}
+                        placeholder="ENTER PICKUP ADDRESS" value={pickupAddress} />
+                        </Autocomplete>
+
+                      ): (
+                        <Autocomplete onPlaceChanged={()=> handlePlaceDropChange()} >
+                        <input
+                        ref={ref2}
+                        style={{width:'200px'}}
+                        onChange={(e)=>  dispatch(changeDropAddress(e.target.value))}
+                        placeholder="ENTER PICKUP ADDRESS" value={dropAddress} />
+                        </Autocomplete>
+                      )} 
+
+
+          
+              </div>
+          </div>
+          )}
+            
+    
       
      
       </GoogleMap>

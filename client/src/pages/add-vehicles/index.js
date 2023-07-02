@@ -6,16 +6,23 @@ import { useRouter } from 'next/router'
 
 
 const AddVehicle = ( )=> {
-    const hanldeImageSave = (e)=>{
-        console.log(e.target.files[0])
+  const [file, setfile] = useState(null)
+    const handleImageSave = (e)=>{
+      setfile(e.target.files[0])
     }
   const handleSave = async(values) => {
+    const formData = new FormData()
+ 
+    Object.entries(values).map(item=>{
+      formData.append(item[0], item[1])
+    })
+    formData.append('vehicleImage', file)
+
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: "hi"
+      body: formData
   };
-  const res= await fetch('http://localhost:3001/register', requestOptions)
+  const res= await fetch('http://localhost:3001/add-vehicle', requestOptions)
 
   }
 
@@ -46,7 +53,7 @@ const AddVehicle = ( )=> {
               <Field name="perKmPrice"  placeholder="perKmPrice"/>
               {errors.perKmPrice && touched.perKmPrice ? <div>{errors.perKmPrice}</div> : null}
               <br/>
-              <input type="file" onChange={hanldeImageSave}/>
+              <input type="file" onChange={handleImageSave}/>
               <button type="submit">Save</button>
             </Form>
           )}
