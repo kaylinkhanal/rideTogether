@@ -22,4 +22,10 @@ const Vehicle = require('../model/vehicle')
       })
     }
   }
-  module.exports = {addNewVehicle, getAllVehicles}
+
+  const getVechicleTypeImage = async (req,res)=>{
+    console.log(req.params)
+  }
+
+
+  module.exports = {addNewVehicle, getAllVehicles, getVechicleTypeImage}

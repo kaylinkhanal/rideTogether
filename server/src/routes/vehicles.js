@@ -15,5 +15,5 @@ const storage = multer.diskStorage({
 
 app.post('/add-vehicle', upload.single('imageImage'), VehicleController.addNewVehicle)
 app.get('/vehicles', VehicleController.getAllVehicles)  
-
+app.get('/getVechicleTypeImage/:id', VehicleController.getVechicleTypeImage)
 module.exports=app;
