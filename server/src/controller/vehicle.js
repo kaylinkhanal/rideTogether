@@ -23,4 +23,23 @@ const fs = require('fs')
       })
     }
   }
-  module.exports = {addNewVehicle, getAllVehicles}
+
+  const getVechicleTypeImage = async (req,res)=>{
+    try{
+      const data = await Vehicle.findById(req.params.id)
+      const imagePath = path.join(__dirname,'../../uploads/vehicle',data.vehicleImage)
+      const defaultPath = path.join(__dirname,'../../uploads/vehicle','defaultVehicle.jpeg')
+   
+     if(fs.existsSync(imagePath) && data.vehicleImage){
+       res.sendFile(imagePath)
+     }else{
+       res.sendFile(defaultPath)
+     }
+    }catch(err){
+      console.log(err)
+    }
+  
+ 
+  }
+
+  module.exports = {addNewVehicle, getAllVehicles,getVechicleTypeImage}

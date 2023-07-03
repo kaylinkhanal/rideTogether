@@ -11,9 +11,14 @@ const Rider = () => {
 
 
   const fetchUserDetails = async()=> {
-    const res =  await fetch('http://localhost:3001/users/'+id)
-    const data = await res.json()
-    setUserDetails(data.userList)
+    try{
+      const res =  await fetch('http://localhost:3001/users/'+id)
+      const data = await res.json()
+      setUserDetails(data.userList)
+    }catch(err){
+      console.log(err)
+    }
+ 
   }
   useEffect(()=>{
     fetchUserDetails()
