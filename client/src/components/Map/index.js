@@ -86,6 +86,9 @@ const Map = (props)=> {
     dispatch(changeDropAddress(data.features[0].properties.formatted))
    dispatch(setDropCoords(locationCoords))
   }
+  const handleClick =()=>{
+    dispatch(placeholder)
+  }
 
   if(isLoaded){
     return (
@@ -113,16 +116,18 @@ const Map = (props)=> {
              position={dropCoord}
            />
          )}
-     
-    
+         
+          
           {props.showAllButtons && (
             <div>
               <div className={styles.searchBox}> 
               <div className={styles.chipList}>
               
+             
+              
                   <Stack direction="row" spacing={1}>
-                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
-                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick} />
+                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick}/>
                   </Stack>
                   {formStep == 1 ? (
                   <Fab variant="extended" onClick={()=>setFormStep(2)} >
