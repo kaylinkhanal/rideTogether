@@ -94,6 +94,7 @@ const Map = (props)=> {
         mapContainerStyle={containerStyle}
         center={pickupCoord}
         zoom={14}
+        
         // onLoad={onLoad}
       >
        
@@ -161,7 +162,7 @@ const Map = (props)=> {
                       border: `1px solid transparent`,
                       padding: `0 12px`,
                       borderRadius: `3px`,
-                      fontSize: `14px`,
+                      fontSize: `20px`,
                       outline: `none`,
                       textOverflow: `ellipses`,
                       position: "absolute",
