@@ -2,20 +2,44 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   pickupCoord: {
-   lat: 27.685492,
-    lng:85.344623
+ 
   },
-  pickupAddress: ''
+  pickupAddress: '',
+  dropCoord: {
+ 
+  },
+  dropAddress: ''
 };
 const LocationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {
-    setLocation: (state, actions) => {
-  
+    setPickUpCoords: (state, actions) => {
+      return {
+        ...state,
+        pickupCoord: actions.payload
+      }
+    },
+    changePickUpAddress: (state, actions) => {
+      return {
+        ...state,
+        pickupAddress: actions.payload
+      }
+    },
+    setDropCoords: (state, actions) => {
+      return {
+        ...state,
+        dropCoord: actions.payload
+      }
+    },
+    changeDropAddress: (state, actions) => {
+      return {
+        ...state,
+        dropAddress: actions.payload
+      }
     },
  
   }
 });
-export const { setLocation } = LocationSlice.actions;
+export const { setPickUpCoords,changePickUpAddress,changeDropAddress, setDropCoords } = LocationSlice.actions;
 export default LocationSlice.reducer;
