@@ -8,6 +8,7 @@ export const initialState = {
   dropCoord: {
  
   },
+  requestDate: '',
   dropAddress: ''
 };
 const LocationSlice = createSlice({
@@ -33,9 +34,11 @@ const LocationSlice = createSlice({
       }
     },
     changeDropAddress: (state, actions) => {
+      const DATE = new Date();
       return {
         ...state,
-        dropAddress: actions.payload
+        dropAddress: actions.payload,
+        requestDate: DATE
       }
     },
  

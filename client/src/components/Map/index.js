@@ -121,7 +121,7 @@ const Map = (props)=> {
               <div className={styles.chipList}>
               
                   <Stack direction="row" spacing={1}>
-                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+                  <Chip label="balaju, eklatar, kathmandu" onClick={()=>dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))} style={{backgroundColor:'#fff'}} variant="outlined" />
                   <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
                   </Stack>
                   {formStep == 1 ? (

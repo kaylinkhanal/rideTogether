@@ -1,14 +1,26 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Link from 'next/link';
 
 import {setUserDetails} from '../../redux/reducers/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import Img from '@/components/Image';
 
+import { io } from 'socket.io-client';
+
+
+export const socket = io('http://localhost:3001',{
+  cors: {
+    origin: "*"
+  }
+});
+
 
 const Login = ( )=> {
+  useEffect(()=>{
+    socket.on('connection')
+  },[])
  
   const [error, setError] = useState('')
   const {token} = useSelector(state=>state.user)
