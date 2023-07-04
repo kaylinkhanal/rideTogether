@@ -10,6 +10,8 @@ import MiniDrawer from '../Drawer';
 import { useSelector, useDispatch } from 'react-redux';
 import {Chip,Stack,Fab} from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
+import Alert from '@mui/material/Alert';
+
 const containerStyle = {
   width: '100vw',
   height: '100vh'
@@ -29,14 +31,19 @@ const Map = ()=> {
     // ...otherOptions
   })
   const handlePlacePickUpChange = async() => {
-    dispatch(changePickUpAddress(ref.current.value))
-    const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
-    const data =await res.json()
-    const cords = {
-      lat: data.features[0].properties.lat,
-      lng: data.features[0].properties.lon
+    try{
+      dispatch(changePickUpAddress(ref.current.value))
+      const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
+      const data =await res.json()
+      const cords = {
+        lat: data.features[0].properties.lat,
+        lng: data.features[0].properties.lon
+      }
+      dispatch(setPickUpCoords(cords))
+    } catch(err){
+      alert('Enter Valid Address')
     }
-    dispatch(setPickUpCoords(cords))
+    
     
   }
   const handlePlaceDropChange = async() => {
