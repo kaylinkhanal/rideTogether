@@ -87,7 +87,7 @@ const Map = (props)=> {
    dispatch(setDropCoords(locationCoords))
   }
   const handleClick =()=>{
-    dispatch(placeholder)
+    console.log('clickable')
   }
 
   if(isLoaded){
