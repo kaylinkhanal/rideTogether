@@ -91,7 +91,7 @@ const Map = (props)=> {
     dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))
   }
   const handleClick2 =()=>{
-    dispatch(changeDropAddress("tinkune, kathmandu"))
+    dispatch(changeDropAddress("Tinkune, Kathmandu, Nepal"))
   }
 
   if(isLoaded){
@@ -131,7 +131,7 @@ const Map = (props)=> {
               
                   <Stack direction="row" spacing={1}>
                   <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick} />
-                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick2}/>
+                  <Chip label="Tinkune, Kathmandu, Nepal" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick2}/>
                   </Stack>
                   {formStep == 1 ? (
                   <Fab variant="extended" onClick={()=>setFormStep(2)} >
