@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 const AddVehicle = ( )=> {
   const [file, setfile] = useState(null)
     const handleImageSave = (e)=>{
+      
       setfile(e.target.files[0])
     }
   const handleSave = async(values) => {
@@ -54,6 +55,7 @@ const AddVehicle = ( )=> {
               {errors.perKmPrice && touched.perKmPrice ? <div>{errors.perKmPrice}</div> : null}
               <br/>
               <input type="file" onChange={handleImageSave}/>
+              <br/>
               <button type="submit">Save</button>
             </Form>
           )}

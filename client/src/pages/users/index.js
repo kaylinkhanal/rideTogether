@@ -8,7 +8,7 @@ const Users = () => {
     <div>
   
 
-      <Map showAllButtons={true}/>
+      <Map showAllButtons={true}  containerStyle={{width: '100vw',height: '100vh'}}/>
       </div>
   )
 }
