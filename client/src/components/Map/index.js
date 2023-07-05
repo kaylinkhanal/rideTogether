@@ -87,7 +87,10 @@ const Map = (props)=> {
    dispatch(setDropCoords(locationCoords))
   }
   const handleClick =()=>{
-    console.log('clickable')
+    dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))
+  }
+  const handleClick2 =()=>{
+    dispatch(changeDropAddress("tinkune, kathmandu"))
   }
 
   if(isLoaded){
@@ -127,7 +130,7 @@ const Map = (props)=> {
               
                   <Stack direction="row" spacing={1}>
                   <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick} />
-                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick}/>
+                  <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick2}/>
                   </Stack>
                   {formStep == 1 ? (
                   <Fab variant="extended" onClick={()=>setFormStep(2)} >
