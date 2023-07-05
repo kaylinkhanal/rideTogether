@@ -48,10 +48,13 @@ const Register = ( )=> {
               <Field name="email"  placeholder="email"/>
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
               <br/>
-              <Field name="role"  placeholder="role"/>
+                 <select>
+                  <option value="option1">User</option>
+                  <option value="option2">Rider</option>
+                  <option value="option3">Admin</option>
+                  </select>
               {errors.role && touched.role ? <div>{errors.role}</div> : null}
               <br/>
-              
               <button type="submit">Submit</button>
               Already User <Link href="/">Sign in</Link>
             </Form>
@@ -60,6 +63,6 @@ const Register = ( )=> {
         </div>
     )
 }
-
-
 export default Register
+
+

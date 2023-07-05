@@ -100,9 +100,6 @@ export default function PersistentDrawerLeft() {
 
         <Toolbar className='toolbar'>
 
-
-
-
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -118,7 +115,7 @@ export default function PersistentDrawerLeft() {
             {role}
           </Typography>
           <IconButton onClick={() => setOpenNotification(!openNotification)}>
-            <Badge badgeContent={100} color="secondary">
+            <Badge badgeContent={10} color="secondary">
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
