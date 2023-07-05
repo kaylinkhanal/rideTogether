@@ -87,6 +87,7 @@ const Map = (props)=> {
    dispatch(setDropCoords(locationCoords))
   }
   const handleClick =()=>{
+    //dispatches but the cursor and map does not update
     dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))
   }
   const handleClick2 =()=>{
