@@ -1,15 +1,13 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styles from "../../../styles/map.module.css";
-import { getDistance } from "geolib";
-import Map from "@/components/Map";
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import styles from '../../../styles/map.module.css'
+import { getDistance } from 'geolib';
+import Map from '@/components/Map';
+import moment from 'moment'
 import Drawer from '@/components/Drawer'
-
 function MapDetails() {
-  const { userVehicleType } = useSelector((state) => state.user);
-  const { pickupCoord, dropCoord, dropAddress, pickupAddress } = useSelector(
-    (state) => state.location
-  );
+    const { userVehicleType} = useSelector(state=>state.user)
+    const { pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate} = useSelector(state=>state.location)
 
   const distance = getDistance(pickupCoord, dropCoord) / 1000;
 
@@ -46,11 +44,16 @@ function MapDetails() {
             <td className={styles.td}>Destination Address:</td>
             <td className={styles.td}>: {dropAddress}</td>
           </tr>
+
+          <tr>
+            <td className={styles.td}>Requested Time:</td>
+            <td className={styles.td}>:  requested: {moment(requestDate).fromNow()}</td>
+          </tr>
         </table>
       </div>
 
       <div className={styles.map}>
-      <Map showAllButtons={false} />
+      <Map showAllButtons={false} containerStyle={{width: '50vw',height: '50vh'}}/>
       
       </div>
       <div>

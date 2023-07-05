@@ -14,10 +14,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {Chip,Stack,Fab} from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
-const containerStyle = {
-  width: '100vw',
-  height: '100vh'
-};
 
 
 const Map = (props)=> {
@@ -91,7 +87,7 @@ const Map = (props)=> {
     return (
       
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={props.containerStyle}
         center={pickupCoord}
         zoom={14}
         
@@ -122,7 +118,7 @@ const Map = (props)=> {
               <div className={styles.chipList}>
               
                   <Stack direction="row" spacing={1}>
-                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
+                  <Chip label="balaju, eklatar, kathmandu" onClick={()=>dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))} style={{backgroundColor:'#fff'}} variant="outlined" />
                   <Chip label="tinkune, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" />
                   </Stack>
                   {formStep == 1 ? (
