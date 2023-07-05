@@ -117,11 +117,15 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" noWrap component="div" style={{ width: '100%' }}>
             {role}
           </Typography>
-          <IconButton onClick={() => setOpenNotification(!openNotification)}>
+          {role== 'rider' && (
+            <div>
+            <IconButton onClick={() => setOpenNotification(!openNotification)}>
             <Badge badgeContent={100} color="secondary">
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
+          </div>
+          )}
           {
             openNotification ? (
               <div className={styles.notificationDropDown}>

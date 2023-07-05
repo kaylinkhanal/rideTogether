@@ -13,13 +13,13 @@ export default function BasicSpeedDial() {
   const {userVehicleType} = useSelector(state=>state.user)
   const [openList, setOpenList] = useState(false)
   const [vehicleTypeList, setvehicleTypeList] = useState([])
-  const fetchUserDetails = async()=> {
+  const fetchVehiclesDetails = async()=> {
     const res =  await fetch('http://localhost:3001/vehicles')
     const data = await res.json()
     setvehicleTypeList(data.vehicleList)
   }
   useEffect(()=>{
-    fetchUserDetails()
+    fetchVehiclesDetails()
   },[])
 
 const handleOnClick = ()=> {

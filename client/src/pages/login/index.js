@@ -53,6 +53,7 @@ const Login = ( )=> {
     return (
         <div>
           <Img/>
+          <button onClick={()=>socket.emit('rideRequest', "hello guys ")}>send request</button>
         <Formik
           initialValues={{
             phoneNumber: '',

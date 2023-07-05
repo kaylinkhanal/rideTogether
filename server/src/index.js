@@ -3,7 +3,11 @@ const app = express()
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+  origin:"*"
+  }
+});
 const cors =require('cors')
 require('dotenv').config()
 app.use(express.json())
@@ -16,7 +20,18 @@ const vehicleRoute=require('./routes/vehicles')
 
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  
+  // app.post('/rideRequest',(req,res)=>{
+  //   console.log
+  // })
+  console.log(socket.id)
+
+
+  socket.on('rideRequest', rideRequest=> {
+    io.emit('rideRequest',rideRequest)
+  })
+
+
 });
 
 
