@@ -16,8 +16,8 @@ const distance = getDistance( pickupCoord,  dropCoord )/1000
 
 <div className={styles.priceDiv}>
                   distance : {distance + 'km'  }<br/>
-                    Selected Vehicle Type is: {userVehicleType.vehicleType}<br/>
-                    Max Available Seats is : {userVehicleType.maxSeats} <br/>
+                    Selected Vehicle Type is: {userVehicleType?.vehicleType}<br/>
+                    Max Available Seats is : {userVehicleType?.maxSeats} <br/>
                    Total Price is: {userVehicleType.perKmPrice * distance }<br/>
                    Pickup Address: {pickupAddress}<br/>
                    Destination Address: {dropAddress}

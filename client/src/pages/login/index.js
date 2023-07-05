@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Img from '@/components/Image';
 
 import { io } from 'socket.io-client';
+import { useRouter } from 'next/router'
 
 
 export const socket = io('http://localhost:3001',{
@@ -18,6 +19,7 @@ export const socket = io('http://localhost:3001',{
 
 
 const Login = ( )=> {
+  const router = useRouter()
   useEffect(()=>{
     socket.on('connection')
   },[])
@@ -34,6 +36,7 @@ const Login = ( )=> {
       };
       const res = await fetch('http://localhost:3001/login', requestOptions)
       const data = await res.json()
+      router.push('/')
       if(data.isLoggedIn){
         dispatch(setUserDetails(data))
       }else{
