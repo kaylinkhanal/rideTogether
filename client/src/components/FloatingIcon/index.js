@@ -33,7 +33,8 @@ const handleOnClick = ()=> {
           Vehicle type
         </div>
          {openList && vehicleTypeList.length>0 && vehicleTypeList.map((item) => (
-          <div onClick={()=>  dispatch(changeVehicleType(item))}  style={{backgroundColor: item._id == userVehicleType._id ? "lightgrey": null}}>
+          <div onClick={()=>  dispatch(changeVehicleType(item))} 
+           style={{backgroundColor: item?._id == userVehicleType?._id ? "lightgrey": null}}>
           {JSON.stringify(item.vehicleType)}
           <Image src={'http://localhost:3001/getVechicleTypeImage/'+item._id}   width={10}
       height={10}

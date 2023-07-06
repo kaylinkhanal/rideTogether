@@ -12,7 +12,7 @@ export default function Home() {
   const {token,role} = useSelector(state=> state.user)
   const AuthorizedScreen=()=>{
     debugger;
-    switch(role){
+    switch(role.toLowerCase()){
 
       case 'user':
         return <Users/>
