@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/navigation'
+import styles from '@/styles/users.module.css'
 
 const Profile = () => {
     const router = useRouter()
@@ -29,19 +30,19 @@ const Profile = () => {
   return (
     <>
         <button onClick={() => router.push('/')}>Back</button>
-      <div className="profile">
-        <div className="photo"></div>
+      <div className={styles.profile}>
+        <div className={styles.photo}></div>
        
       </div>
-      <div className="userDetails">
-        <table className="detail">
+      <div className={styles.userDetails}>
+        <table className={styles.details}>
             <tr>
-                <td>Email : </td>
-                <td>{userDetails.email}</td>
+                <td className={styles.detail} >Email : </td>
+                <td> className={styles.detail} {userDetails.email}</td>
             </tr>
             <tr>
-                <td>PhoneNumber :  </td>
-                <td>{userDetails.phoneNumber}</td>
+                <td className={styles.detail}>PhoneNumber :  </td>
+                <td className={styles.detail}>{userDetails.phoneNumber}</td>
             </tr>
            
         </table>

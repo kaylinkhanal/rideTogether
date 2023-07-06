@@ -13,13 +13,13 @@ export default function BasicSpeedDial() {
   const {userVehicleType} = useSelector(state=>state.user)
   const [openList, setOpenList] = useState(false)
   const [vehicleTypeList, setvehicleTypeList] = useState([])
-  const fetchUserDetails = async()=> {
+  const fetchVehiclesDetails = async()=> {
     const res =  await fetch('http://localhost:3001/vehicles')
     const data = await res.json()
     setvehicleTypeList(data.vehicleList)
   }
   useEffect(()=>{
-    fetchUserDetails()
+    fetchVehiclesDetails()
   },[])
 
 const handleOnClick = ()=> {
@@ -32,8 +32,9 @@ const handleOnClick = ()=> {
         <div   onClick={handleOnClick} style={{backgroundColor:"#000", color:"#fff", padding:"20px"}}>
           Vehicle type
         </div>
-         {openList && vehicleTypeList.map((item) => (
-          <div onClick={()=>  dispatch(changeVehicleType(item))}  style={{backgroundColor: item._id == userVehicleType._id ? "lightgrey": null}}>
+         {openList && vehicleTypeList.length>0 && vehicleTypeList.map((item) => (
+          <div onClick={()=>  dispatch(changeVehicleType(item))} 
+           style={{backgroundColor: item?._id == userVehicleType?._id ? "lightgrey": null}}>
           {JSON.stringify(item.vehicleType)}
           <Image src={'http://localhost:3001/getVechicleTypeImage/'+item._id}   width={10}
       height={10}

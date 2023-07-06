@@ -11,6 +11,7 @@ import Img from '@/components/Image';
 import { io } from 'socket.io-client';
 
 
+
 export const socket = io('http://localhost:3001',{
   cors: {
     origin: "*"
@@ -53,6 +54,7 @@ const Login = ( )=> {
     return (
         <div>
           <Img/>
+          <button onClick={()=>socket.emit('rideRequest', "hello guys ")}>send request</button>
         <Formik
           initialValues={{
             phoneNumber: '',

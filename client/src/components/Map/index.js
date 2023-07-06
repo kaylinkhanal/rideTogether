@@ -14,10 +14,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {Chip,Stack,Fab} from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
-const containerStyle = {
-  width: '100vw',
-  height: '100vh'
-};
 
 
 const Map = (props)=> {
@@ -91,9 +87,10 @@ const Map = (props)=> {
     return (
       
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={props.containerStyle}
         center={pickupCoord}
         zoom={14}
+        
         // onLoad={onLoad}
       >
        
@@ -161,7 +158,7 @@ const Map = (props)=> {
                       border: `1px solid transparent`,
                       padding: `0 12px`,
                       borderRadius: `3px`,
-                      fontSize: `14px`,
+                      fontSize: `20px`,
                       outline: `none`,
                       textOverflow: `ellipses`,
                       position: "absolute",
