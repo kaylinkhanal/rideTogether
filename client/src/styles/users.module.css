@@ -1,17 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Merriweather:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
 .basicMenu {
     float: right;
-    margin-top: -30px;
-    right: 0;
+    right: 0px;
     position: absolute;
+    top: 5px;
+
 }
 
 .chipList{
-    margin-top: -35px;
+    
     position: absolute;
-    float: right;
-    margin-left: 60%;
+    left: 39%;
+    top: 160px;
+    
 }
 
+.navigationIcon{
+    position: relative;
+    top: 20px;
+    left: 58%;
+    
+    
+}
+
+
+.searchPickUpandDrop{
+    width: 300px;
+    padding: 13px;
+    font-size: 15px;
+    border: 0px;
+    font-family: 'Inter', sans-serif;
+    border-radius: 30px;
+    position: relative;
+   top: 5px;
+   left: 15%;
+    
+
+}
+
+.back{
+    position: relative;
+    left: 10px;
+}
+
+.head{
+    color:white;
+    text-align: center;
+}
+
+.dropLocation{
+    width: 20;
+    
+    position: relative;
+    right: 40px;
+    
+    top: -3px;
+    
+}
+
+.searchBar{
+    position: absolute;
+    height: 100px;
+    z-index: 1;
+    background-color: black;
+    right: 30%;
+    top: 4px;
+    width: 40%;
+    height: 150px;
+    border-radius: 10px;
+    opacity: 0.85;
+}
+
+
+.searchDrop{
+    width: 300px;
+    padding: 10px;
+    font-size: 15px;
+   
+    
+    font-family: 'Inter', sans-serif;
+    border-color: white;
+    border-radius: 10px;
+    position: relative;
+    top: 4px;
+    left: 40px;
+}
+
+
+
+.FloatingIcon{
+    width: 10%;
+    text-align: center;
+    font-size: 17px;
+    position: absolute;
+    right: 8px;
+    top: 100px;
+}
 .searchBox  {
     display: block;
     margin-top: 53px;
@@ -34,7 +119,7 @@ background-color: gray;
 .SpeedDial{
     border: 1px solid;
     border-radius: 40px;
-    background-color: cornflowerblue;
+    background-color: rgb(21, 69, 158);
 }
 
 /*Profile*/
@@ -88,3 +173,4 @@ background-color: gray;
     right: 0;
     position: absolute;
 }
+

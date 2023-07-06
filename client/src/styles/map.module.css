@@ -1,47 +1,82 @@
 @import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Merriweather:wght@700&display=swap");
 /*Ride Details*/
+.body {
+  background-color: white;
+}
 .td {
-   
-    font-size: 1rem;
-    padding: 11px;
-    color: black;
-    font-family: "Caprasimo", cursive;
-    font-family: "Merriweather", serif;
-    text-align: left;
-    
+  font-size: 1rem;
+  padding: 11px;
+  color: white;
+  font-family: "Caprasimo", cursive;
+  font-family: "Merriweather", serif;
+  text-align: left;
 }
 
 
-.userDetails{
-    border: 2px solid black;
+.confirm:hover {
+  background-color: white;
+  color: black;
+}
+
+.cancel:hover {
     background-color: white;
     color: black;
+  }
+
+
+
+.userDetails {
+    background-color: black;
     width: 32%;
     border-radius: 30px;
     padding: 15px;
-    box-shadow: 7px 3px black;
+    top: 75px;
     margin-bottom: 10px;
-    
+    position: absolute;
+    z-index: 1;
+    left: 43px;
+    opacity: 0.9;
 }
-.mapDetails{
-    color: white;
-    text-align: end;
-
-    
+.mapDetails {
+  color: white;
+  text-align: end;
 }
 
-.heading{
-    text-align: center;
-    background-color: white;
-    color: black;
-    padding: 15px;
-    margin-top: 0px;
-    border-radius: 30px;
+.heading {
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding: 15px;
+  margin-top: 0px;
+  border-radius: 30px;
+  font-family: "Caprasimo", cursive;
+  font-family: "Merriweather", serif;
+}
+
+.confirm {
+    width: 40%;
     font-family: "Caprasimo", cursive;
     font-family: "Merriweather", serif;
-}
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 15px;
+  }
 
-.map{
-    border: 1px solid red;
-    width: 50%;
-}
+  .cancel{  
+    width: 40%;
+    margin-right: 50px;
+    margin-left: 20px;
+    font-family: "Caprasimo", cursive;
+    font-family: "Merriweather", serif;
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 15px;
+   
+
+  }
+
+

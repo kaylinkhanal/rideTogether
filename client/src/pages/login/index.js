@@ -9,7 +9,7 @@ import Img from '@/components/Image';
 
 import { io } from 'socket.io-client';
 import { useRouter } from 'next/router'
-
+import styles from '@/styles/form.module.css'
 
 export const socket = io('http://localhost:3001',{
   cors: {
@@ -51,9 +51,9 @@ const Login = ( )=> {
      
     }
     return (
-        <div>
-          <Img/>
-          <button onClick={()=>socket.emit('rideRequest', "hello guys ")}>send request</button>
+        <div className={styles.body}>
+        
+          
         <Formik
           initialValues={{
             phoneNumber: '',
@@ -65,20 +65,25 @@ const Login = ( )=> {
           }}
         >
           {({ errors, touched }) => (
-            <Form>
-              <Field name="phoneNumber" placeholder="phoneNumber"/>
+            <Form className={styles.form}>
+                <h2 className={styles.title}>Login</h2>
+              <div className={styles.img}>
+              <Img />
+              </div>
+              
+              <Field name="phoneNumber" placeholder="phoneNumber" className={styles.input}/>
               {errors.phoneNumber && touched.phoneNumber ? (
                 <div>{errors.phoneNumber}</div>
               ) : null}
               <br/>
-              <Field name="password" placeholder="password"/>
+              <Field name="password" placeholder="password" className={styles.input}/>
               {errors.password && touched.password? (
                 <div>{errors.password}</div>
               ) : null}
               <br/>
               <span style={{color:'crimson'}}>{error}</span>
               <br/>
-              <button type="submit">Submit</button>
+              <button type="submit" className={styles.submit}>Submit</button>
              Dont have an account yet ?   <Link href="/register">Sign Up</Link>
             </Form>
           )}
