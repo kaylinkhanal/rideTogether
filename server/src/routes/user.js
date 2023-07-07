@@ -4,8 +4,7 @@ const UserController = require('../controller/user')
 app.post('/register', UserController.registerNewUser)
 app.post('/login', UserController.loginUser)
 app.get('/users', UserController.getAllUser)
-app.get('/change-password', UserController.changePassword)
+app.put('/change-password/:id', UserController.changePassword)
 app.get('/users/:id', UserController.getUserDetailsById)
-
 
 module.exports=app;
