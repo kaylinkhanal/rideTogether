@@ -33,7 +33,7 @@ const Register = ( )=> {
             handleRegister(values)
           }}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, handleChange }) => (
             <Form>
               <Field name="phoneNumber" placeholder="phoneNumber"/>
               {errors.phoneNumber && touched.phoneNumber ? (
@@ -47,11 +47,13 @@ const Register = ( )=> {
               <br/>
               <Field name="email"  placeholder="email"/>
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
+              <Field as="select" name="role">
+                <option value="User">User</option>
+                  <option value="Rider">Rider</option>
+             </Field>
               <br/>
-              <Field name="role"  placeholder="role"/>
               {errors.role && touched.role ? <div>{errors.role}</div> : null}
               <br/>
-              
               <button type="submit">Submit</button>
               Already User <Link href="/">Sign in</Link>
             </Form>
@@ -60,6 +62,6 @@ const Register = ( )=> {
         </div>
     )
 }
-
-
 export default Register
+
+

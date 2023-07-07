@@ -2,28 +2,15 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {useEffect, useState} from 'react'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {setUserDetails} from '../../redux/reducers/userSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import Img from '@/components/Image';
 
-import { io } from 'socket.io-client';
-import { useRouter } from 'next/router'
-
-
-export const socket = io('http://localhost:3001',{
-  cors: {
-    origin: "*"
-  }
-});
-
 
 const Login = ( )=> {
   const router = useRouter()
-  useEffect(()=>{
-    socket.on('connection')
-  },[])
- 
   const [error, setError] = useState('')
   const {token} = useSelector(state=>state.user)
     const dispatch = useDispatch()
@@ -36,7 +23,7 @@ const Login = ( )=> {
       };
       const res = await fetch('http://localhost:3001/login', requestOptions)
       const data = await res.json()
-      router.push('/')
+      router.push("/")
       if(data.isLoggedIn){
         dispatch(setUserDetails(data))
       }else{
@@ -53,7 +40,7 @@ const Login = ( )=> {
     return (
         <div>
           <Img/>
-          <button onClick={()=>socket.emit('rideRequest', "hello guys ")}>send request</button>
+         
         <Formik
           initialValues={{
             phoneNumber: '',

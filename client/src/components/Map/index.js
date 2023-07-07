@@ -184,9 +184,6 @@ const Map = (props)=> {
                         placeholder="ENTER PICKUP ADDRESS" value={dropAddress} />
                         </Autocomplete>
                       )} 
-
-
-          
               </div>
           </div>
           )}

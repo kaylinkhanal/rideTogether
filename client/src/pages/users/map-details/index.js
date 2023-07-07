@@ -1,16 +1,32 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../../../styles/map.module.css'
 import { getDistance } from 'geolib';
 import Map from '@/components/Map';
 import moment from 'moment'
 import Drawer from '@/components/Drawer'
+import { io } from 'socket.io-client';
+
+
+
+export const socket = io('http://localhost:3001',{
+  cors: {
+    origin: "*"
+  }
+});
+
 function MapDetails() {
-    const { userVehicleType} = useSelector(state=>state.user)
+  useEffect(()=>{
+    socket.on('connection')
+  },[])
+    const { userVehicleType, id} = useSelector(state=>state.user)
     const { pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate} = useSelector(state=>state.location)
 
   const distance = getDistance(pickupCoord, dropCoord) / 1000;
+  const sendRideRequest = ()=>{
 
+    socket.emit('rideRequest', {pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate, userVehicleType,id})
+  }
   return (
     <div>
       <Drawer/>
@@ -57,7 +73,7 @@ function MapDetails() {
       
       </div>
       <div>
-        <button>Proceed To Checkout</button>
+        <button onClick={sendRideRequest}>Send Ride Request</button>
       </div>
     </div>
   );
