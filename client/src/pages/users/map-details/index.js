@@ -6,6 +6,7 @@ import Map from '@/components/Map';
 import moment from 'moment'
 import Drawer from '@/components/Drawer'
 import { io } from 'socket.io-client';
+import { useRouter } from 'next/router';
 
 
 
@@ -16,6 +17,7 @@ export const socket = io('http://localhost:3001',{
 });
 
 function MapDetails() {
+  const router = useRouter()
   useEffect(()=>{
     socket.on('connection')
   },[])
