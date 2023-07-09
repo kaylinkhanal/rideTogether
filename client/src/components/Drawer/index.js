@@ -100,9 +100,6 @@ export default function PersistentDrawerLeft() {
 
         <Toolbar className='toolbar'>
 
-
-
-
           <IconButton
             color="inherit"
             aria-label="open drawer"

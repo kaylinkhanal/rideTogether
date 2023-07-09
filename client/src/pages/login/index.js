@@ -20,10 +20,6 @@ export const socket = io('http://localhost:3001',{
 
 const Login = ( )=> {
   const router = useRouter()
-  useEffect(()=>{
-    socket.on('connection')
-  },[])
- 
   const [error, setError] = useState('')
   const {token} = useSelector(state=>state.user)
     const dispatch = useDispatch()
@@ -36,7 +32,7 @@ const Login = ( )=> {
       };
       const res = await fetch('http://localhost:3001/login', requestOptions)
       const data = await res.json()
-      router.push('/')
+      router.push("/")
       if(data.isLoggedIn){
         dispatch(setUserDetails(data))
       }else{
@@ -52,8 +48,6 @@ const Login = ( )=> {
     }
     return (
         <div className={styles.body}>
-        
-          
         <Formik
           initialValues={{
             phoneNumber: '',

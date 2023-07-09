@@ -50,10 +50,12 @@ const Register = ( )=> {
               <Field name="email"  placeholder="email" className={styles.input}/>
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
               <br/>
-              <Field name="role"  placeholder="role" className={styles.input}/>
+              <Field as="select" name="role">
+                <option value="User">User</option>
+                <option value="Rider">Rider</option>
+                </Field>
+                <br/>
               {errors.role && touched.role ? <div>{errors.role}</div> : null}
-              <br/>
-              
               <button type="submit"  className={styles.submit}>Submit</button>
               Already User <Link href="/">Sign in</Link>
             </Form>
