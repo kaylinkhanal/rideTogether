@@ -36,7 +36,10 @@ const Map = (props)=> {
      // ,
     // ...otherOptions
   })
-  const handlePlacePickUpChange = async() => {
+  const handlePlacePickUpChange = async(value) => {
+    if(value){
+      ref.current.value = value
+    }
     dispatch(changePickUpAddress(ref.current.value))
     const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
     const data =await res.json()
@@ -130,8 +133,14 @@ const Map = (props)=> {
              
               
                   <Stack direction="row" spacing={1}>
-                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick} />
-                  <Chip label="Tinkune, Kathmandu, Nepal" style={{backgroundColor:'#fff'}} variant="outlined" onClick={handleClick2}/>
+                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={()=>{
+                    dispatch(changePickUpAddress('balaju, eklatar, kathmandu'))
+                    handlePlacePickUpChange('balaju, eklatar, kathmandu')
+                    }} />
+                  <Chip label="Tinkune, Kathmandu, Nepal" style={{backgroundColor:'#fff'}} variant="outlined" onClick={()=>{
+                    dispatch(changePickUpAddress('Tinkune, Kathmandu, Nepal'))
+                    handlePlacePickUpChange('Tinkune, Kathmandu, Nepal')
+                    }}/>
                   </Stack>
                   {formStep == 1 ? (
                   <Fab variant="extended" onClick={()=>setFormStep(2)} >
