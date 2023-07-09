@@ -2,6 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
+import styles from '@/styles/form.module.css'
 
 const Register = ( )=> {
   const router = useRouter()
@@ -19,7 +20,7 @@ const Register = ( )=> {
   }
 
     return (
-        <div>
+        <div className={styles.body}>
     
       
         <Formik
@@ -34,25 +35,28 @@ const Register = ( )=> {
           }}
         >
           {({ errors, touched }) => (
-            <Form>
-              <Field name="phoneNumber" placeholder="phoneNumber"/>
+            <Form className={styles.form}>
+              <h2 className={styles.title}>Register</h2>
+              <Field name="phoneNumber" placeholder="phoneNumber" className={styles.input}/>
               {errors.phoneNumber && touched.phoneNumber ? (
                 <div>{errors.phoneNumber}</div>
               ) : null}
               <br/>
-              <Field name="password" placeholder="password"/>
+              <Field name="password" placeholder="password" className={styles.input}/>
               {errors.password && touched.password? (
                 <div>{errors.password}</div>
               ) : null}
               <br/>
-              <Field name="email"  placeholder="email"/>
+              <Field name="email"  placeholder="email" className={styles.input}/>
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
               <br/>
-              <Field name="role"  placeholder="role"/>
+              <Field as="select" name="role">
+                <option value="User">User</option>
+                <option value="Rider">Rider</option>
+                </Field>
+                <br/>
               {errors.role && touched.role ? <div>{errors.role}</div> : null}
-              <br/>
-              
-              <button type="submit">Submit</button>
+              <button type="submit"  className={styles.submit}>Submit</button>
               Already User <Link href="/">Sign in</Link>
             </Form>
           )}

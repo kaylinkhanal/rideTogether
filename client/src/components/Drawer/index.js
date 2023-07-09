@@ -1,7 +1,8 @@
-import * as React from 'react';
+import  {useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import styles from '../../styles/users.module.css'
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,6 +10,9 @@ import { useRouter } from 'next/navigation'
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Badge from '@mui/material/Badge';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -26,6 +30,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenueDropdwn from '../MenuDropdown'
 import navItems from '../../config/navItems'
 import { useSelector } from 'react-redux';
+import { Menu } from '@mui/material';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -75,9 +80,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const router = useRouter()
- const {role} = useSelector(state=>state.user)
+  const { role } = useSelector(state => state.user)
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [openNotification, setOpenNotification] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -91,11 +97,9 @@ export default function PersistentDrawerLeft() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
+
         <Toolbar className='toolbar'>
-          
-          
-          
-          
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -104,13 +108,33 @@ export default function PersistentDrawerLeft() {
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
 
-        
+
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" style={{width:'100%'}}>
+          <Typography variant="h6" noWrap component="div" style={{ width: '100%' }}>
             {role}
           </Typography>
-          <MenueDropdwn/>
+          {role== 'rider' && (
+            <div>
+            <IconButton onClick={() => setOpenNotification(!openNotification)}>
+            <Badge badgeContent={100} color="secondary">
+              <NotificationsNoneIcon />
+            </Badge>
+          </IconButton>
+          </div>
+          )}
+          {
+            openNotification ? (
+              <div className={styles.notificationDropDown}>
+                <div >
+                  <li>9843410457 has sent a new request</li>
+                </div>
+              </div>
+            ) : null
+          }
+
+
+          <MenueDropdwn />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -127,31 +151,31 @@ export default function PersistentDrawerLeft() {
         open={open}
       >
         <DrawerHeader>
-         
+
           <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
 
         <List>
           {role && navItems?.[role]?.navItems?.map((item, index) => (
-            <ListItem onClick={()=>router.push(item.link)} key={item.navName} disablePadding>
+            <ListItem onClick={() => router.push(item.link)} key={item.navName} disablePadding>
               <ListItemButton>
-              
+
 
                 <ListItemText primary={item.navName} />
-              </ListItemButton> 
+              </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-         
+
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-       
+
       </Main>
     </Box>
   );

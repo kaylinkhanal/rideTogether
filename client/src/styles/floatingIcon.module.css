@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Merriweather:wght@700&display=swap");
+.float{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 30px;
+    font-family: "Caprasimo", cursive;
+    font-family: "Merriweather", serif;
+}
+
+.float:hover{
+    background-color: rgb(42, 41, 41);
+    cursor: pointer;
+}
+
+
+
+.vehicles{
+    color: white;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    
+
+}
+
