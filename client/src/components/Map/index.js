@@ -96,25 +96,7 @@ const Map = (props) => {
     dispatch(setDropCoords(locationCoords));
   };
 
-<<<<<<< HEAD
-    }
-    const res = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${locationCoords.lat}&lon=${locationCoords.lng}&apiKey=a1dd45a7dfc54f55a44b69d125722fcb`)
-    const data =await res.json()
-    dispatch(changeDropAddress(data.features[0].properties.formatted))
-   dispatch(setDropCoords(locationCoords))
-  }
-  const handleClick =()=>{
-    //dispatches but the cursor and map does not update
-    dispatch(changePickUpAddress("balaju, eklatar, kathmandu"))
-  }
-  const handleClick2 =()=>{
-    dispatch(changeDropAddress("Tinkune, Kathmandu, Nepal"))
-  }
-
-  if(isLoaded){
-=======
   if (isLoaded) {
->>>>>>> 43a76aa91c9fcbe20fd92cb4b8386a42ac82c448
     return (
       <GoogleMap
         mapContainerStyle={props.containerStyle}
@@ -137,34 +119,6 @@ const Map = (props) => {
               <MarkerF
             draggable={props.showAllButtons}
             onDragEnd={handleDropChange}
-<<<<<<< HEAD
-             // onLoad={onLoad}
-             position={dropCoord}
-           />
-         )}
-         
-          
-          {props.showAllButtons && (
-            <div>
-              <div className={styles.searchBox}> 
-              <div className={styles.chipList}>
-              
-             
-              
-                  <Stack direction="row" spacing={1}>
-                  <Chip label="balaju, eklatar, kathmandu" style={{backgroundColor:'#fff'}} variant="outlined" onClick={()=>{
-                    dispatch(changePickUpAddress('balaju, eklatar, kathmandu'))
-                    handlePlacePickUpChange('balaju, eklatar, kathmandu')
-                    }} />
-                  <Chip label="Tinkune, Kathmandu, Nepal" style={{backgroundColor:'#fff'}} variant="outlined" onClick={()=>{
-                    dispatch(changePickUpAddress('Tinkune, Kathmandu, Nepal'))
-                    handlePlacePickUpChange('Tinkune, Kathmandu, Nepal')
-                    }}/>
-                  </Stack>
-                  {formStep == 1 ? (
-                  <Fab variant="extended" onClick={()=>setFormStep(2)} >
-                    <NavigationIcon  sx={{ mr: 1 }} />
-=======
             // onLoad={onLoad}
             position={dropCoord}
             
@@ -200,7 +154,6 @@ const Map = (props) => {
                 {formStep == 1 ? (
                   <Fab variant="extended" onClick={() => setFormStep(2)}>
                     <NavigationIcon sx={{ mr: 1 }} />
->>>>>>> 43a76aa91c9fcbe20fd92cb4b8386a42ac82c448
                     Pickup
                   </Fab>
                 ) : (
