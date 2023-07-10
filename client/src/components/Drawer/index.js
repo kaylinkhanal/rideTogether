@@ -84,7 +84,7 @@ export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const [openNotification, setOpenNotification] = useState(false)
   const [open, setOpen] = useState(false);
-
+ 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,7 +128,7 @@ export default function PersistentDrawerLeft(props) {
               <div className={styles.notificationDropDown}>
                 <div >
                   {props?.rideDetails?.length> 0 && props?.rideDetails?.map((item)=>{
-                    return   <div>{item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} </div>
+                    return   <div>{item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} <br/></div>
                   })}
                 </div>
               </div>
