@@ -26,16 +26,16 @@ function MapDetails() {
             </tr>
             <tr>
               <td className={styles.td}>Selected Vehicle Type is </td>
-              <td className={styles.td}>: {userVehicleType.vehicleType}</td>
+              <td className={styles.td}>: {userVehicleType?.vehicleType}</td>
             </tr>
             <tr>
               <td className={styles.td}> Max Available Seats is </td>
-              <td className={styles.td}>: {userVehicleType.maxSeats} </td>
+              <td className={styles.td}>: {userVehicleType?.maxSeats} </td>
             </tr>
             <tr>
               <td className={styles.td}> Total Price is</td>
               <td className={styles.td}>
-                : {userVehicleType.perKmPrice * distance}{" "}
+                : {userVehicleType?.perKmPrice * distance}{" "}
               </td>
             </tr>
             <tr>

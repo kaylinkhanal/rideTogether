@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/navigation'
-import styles from '@/styles/users.module.css'
+
 
 const Profile = () => {
     const router = useRouter()

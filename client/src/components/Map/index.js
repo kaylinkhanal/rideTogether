@@ -146,6 +146,7 @@ const Map = (props) => {
                     label="tinkune, kathmandu"
                     style={{ backgroundColor: "#fff" }}
                     variant="outlined"
+                    
                   />
                 </Stack>
               </div>
