@@ -78,7 +78,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const router = useRouter()
   const { role } = useSelector(state => state.user)
   const theme = useTheme();
@@ -117,7 +117,7 @@ export default function PersistentDrawerLeft() {
           {role== 'rider' && (
             <div>
             <IconButton onClick={() => setOpenNotification(!openNotification)}>
-            <Badge badgeContent={100} color="secondary">
+            <Badge badgeContent={2} color="secondary">
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
@@ -127,7 +127,9 @@ export default function PersistentDrawerLeft() {
             openNotification ? (
               <div className={styles.notificationDropDown}>
                 <div >
-                  <li>9843410457 has sent a new request</li>
+                  {props?.rideDetails?.length> 0 && props?.rideDetails?.map((item)=>{
+                    return   <div>{item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} </div>
+                  })}
                 </div>
               </div>
             ) : null

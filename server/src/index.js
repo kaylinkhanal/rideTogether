@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const http = require('http');
 const server = http.createServer(app);
+const Rides = require('./model/rides')
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
@@ -19,16 +20,16 @@ const userRoute=require('./routes/user')
 const vehicleRoute=require('./routes/vehicles')
 
 
+
 io.on('connection', (socket) => {
   
-  // app.post('/rideRequest',(req,res)=>{
-  //   console.log
-  // })
-  console.log(socket.id)
+  
 
-
-  socket.on('rideRequest', rideRequest=> {
-    io.emit('rideRequest',rideRequest)
+  socket.on('rideRequest',async(rideDetails)=> {
+    const res= await Rides.create(rideDetails)
+    const rides = await Rides.find().populate('userListId')
+    console.log(rides)
+    io.emit('rideRequest',rides)
   })
 
 

@@ -12,25 +12,23 @@ export const socket = io('http://localhost:3001',{
   }
 });
 const Rider = () => {
-  const [userDetails, setUserDetails ] = useState({})
+  const [rideDetails, setRideDetails ] = useState({})
   const {id} =useSelector(state=>state.user)
   useEffect(()=>{
-    socket.on('rideRequest', (rideRequest)=>{
-      console.log(rideRequest)
+    fetch('/')
+  },[])
+  useEffect(()=>{
+    socket.on('rideRequest', (data)=>{
+      setRideDetails(data)
     })
   })
-  const fetchUserDetails = async()=> {
-    const res =  await fetch('http://localhost:3001/users/'+id)
-    const data = await res.json()
-    setUserDetails(data.userList)
-  }
-  useEffect(()=>{
-    fetchUserDetails()
-  },[])
+
+ 
   return (
     <div>Rider
+      
       <div className={styles.MenueDropdwn}/>
-      <Drawer/>
+      <Drawer rideDetails={rideDetails}/>
       
  
         

@@ -27,7 +27,7 @@ function MapDetails() {
   const distance = getDistance(pickupCoord, dropCoord) / 1000;
   const sendRideRequest = ()=>{
 
-    socket.emit('rideRequest', {pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate, userVehicleType,id})
+    socket.emit('rideRequest', {pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate, userVehicleType,userListId:id})
   }
   return (
     <div className={styles.body}>
@@ -76,12 +76,12 @@ function MapDetails() {
           <div className={styles.buttons}>
            <button className={styles.cancel}
               onClick={() => router.push('/')}>Cancel Request</button>
-              <button
-                className={styles.confirm}
-                onClick={() => socket.emit("rideRequest", "hello guys ")}
-              >
-                Send Request
-              </button>
+                <div>
+        <button
+            className={styles.confirm}
+        onClick={sendRideRequest}>Send Ride Request</button>
+      </div>
+             
            </div>
         </div>
 
@@ -92,9 +92,7 @@ function MapDetails() {
         </div>
       
       </div>
-      <div>
-        <button onClick={sendRideRequest}>Send Ride Request</button>
-      </div>
+   
       </div>
     </div>
   );
