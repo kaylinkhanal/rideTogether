@@ -18,6 +18,7 @@ const connectDb = require('./dbConnect/connection')
 const productRoute=require('./routes/product')
 const userRoute=require('./routes/user')
 const vehicleRoute=require('./routes/vehicles')
+const rideRoute = require('./routes/rides')
 
 
 
@@ -40,6 +41,7 @@ connectDb()
 app.use("/",productRoute)
 app.use("/", userRoute)
 app.use("/", vehicleRoute)
+app.use("/", rideRoute)
 
 
 server.listen(process.env.PORT, () => {

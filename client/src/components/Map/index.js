@@ -45,7 +45,7 @@ const Map = (props) => {
     if(value){
       ref.current.value = value
     }
-    dispatch(changePickUpAddress(ref.current.value))
+    dispatch(changePickUpAddress(ref?.current?.value))
     const res = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${ref.current.value}&apiKey=4ecc4127475849f1aaf505f70ffa51a4`)
     const data =await res.json()
     const cords = {
