@@ -12,10 +12,19 @@ export const socket = io('http://localhost:3001',{
   }
 });
 const Rider = () => {
+  const [initialRideDetails, setInitialRideDetails] = useState([])
   const [rideDetails, setRideDetails ] = useState({})
+  const [recentRequest, setrecentRequest] = useState([])
+
+
   const {id} =useSelector(state=>state.user)
+  const fetchRideDetails = async() => {
+    const res = await  fetch('http://localhost:3001/rides')
+    const data =  await res.json()
+    setInitialRideDetails(data.rides)
+  }
   useEffect(()=>{
-    fetch('/')
+    fetchRideDetails()
   },[])
   useEffect(()=>{
     socket.on('rideRequest', (data)=>{
@@ -23,12 +32,44 @@ const Rider = () => {
     })
   })
 
- 
+
+  const generateNotificationNumber = () => {
+    const initialRideIds = initialRideDetails.map((item) => {
+      return item._id
+    })
+
+  let count = 0
+  let recentRequest
+  if(rideDetails.length> 0){
+     recentRequest = rideDetails.filter((item, index) => {  
+      if(!initialRideIds.includes(item._id)){
+        count ++
+        return item
+      }
+    })
+
+    
+  }
+  
+
+  return {count,recentRequest}
+    
+  }
+
+  
   return (
     <div>Rider
-      
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
       <div className={styles.MenueDropdwn}/>
-      <Drawer rideDetails={rideDetails}/>
+      <Drawer rideDetails={rideDetails} 
+
+      count={()=>generateNotificationNumber().count}
+      recentRequest={()=>generateNotificationNumber().recentRequest}
+      />
       
  
         

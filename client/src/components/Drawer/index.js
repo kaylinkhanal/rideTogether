@@ -84,7 +84,7 @@ export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const [openNotification, setOpenNotification] = useState(false)
   const [open, setOpen] = useState(false);
- 
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -117,7 +117,7 @@ export default function PersistentDrawerLeft(props) {
           {role== 'rider' && (
             <div>
             <IconButton onClick={() => setOpenNotification(!openNotification)}>
-            <Badge badgeContent={2} color="secondary">
+            <Badge badgeContent={props.count()} color="secondary" >
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
