@@ -38,7 +38,7 @@ const Profile = () => {
         <table className={styles.details}>
             <tr>
                 <td className={styles.detail} >Email : </td>
-                <td> className={styles.detail} {userDetails.email}</td>
+                <td className={styles.detail}> {userDetails.email}</td>
             </tr>
             <tr>
                 <td className={styles.detail}>PhoneNumber :  </td>

@@ -1,4 +1,4 @@
-import  {useState} from 'react';
+import  {useEffect, useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -30,6 +30,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenueDropdwn from '../MenuDropdown'
 import navItems from '../../config/navItems'
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
+export const socket = io('http://localhost:3001',{
+  cors: {
+    origin: "*"
+  }
+});
 import { Menu } from '@mui/material';
 const drawerWidth = 240;
 
@@ -88,10 +94,18 @@ export default function PersistentDrawerLeft(props) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+  const [notificationCount, setNotificationCount]= useState(0)
 
+  useEffect(()=>{
+    setNotificationCount(props.count())
+  },[props.count()])
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const sendReadyRequest =(acceptRides) => {
+socket.emit('acceptRides',acceptRides)
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -116,8 +130,11 @@ export default function PersistentDrawerLeft(props) {
           </Typography>
           {role== 'rider' && (
             <div>
-            <IconButton onClick={() => setOpenNotification(!openNotification)}>
-            <Badge badgeContent={props.count()} color="secondary" >
+            <IconButton onClick={() =>{
+              setNotificationCount(0)
+              setOpenNotification(!openNotification)
+              }}>
+            <Badge badgeContent={ notificationCount} color="secondary" >
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
@@ -127,8 +144,11 @@ export default function PersistentDrawerLeft(props) {
             openNotification ? (
               <div className={styles.notificationDropDown}>
                 <div >
-                  {props?.rideDetails?.length> 0 && props?.rideDetails?.map((item)=>{
-                    return   <div>{item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} <br/></div>
+                  {props?.recentRequest()?.length> 0 && props?.recentRequest()?.map((item)=>{
+                    return   <div style={{padding:'10px'}}>
+                      {item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} 
+                      <button onClick={()=> sendReadyRequest(item)}>Ready</button>
+                      <br/></div>
                   })}
                 </div>
               </div>

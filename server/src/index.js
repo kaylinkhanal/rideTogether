@@ -29,8 +29,16 @@ io.on('connection', (socket) => {
   socket.on('rideRequest',async(rideDetails)=> {
     const res= await Rides.create(rideDetails)
     const rides = await Rides.find().populate('userListId')
-    console.log(rides)
     io.emit('rideRequest',rides)
+  })
+
+
+  socket.on('acceptRides',async(details)=> {
+console.log(details._id)
+  details.shyam = 'hari'
+  console.log(details,"@@")
+  //
+  await Rides.findByIdAndUpdate(  '64ae31d5bf06d01fe8536536',{$set: {nmae:"hari"}})
   })
 
 
@@ -47,4 +55,3 @@ app.use("/", rideRoute)
 server.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
 })
-
