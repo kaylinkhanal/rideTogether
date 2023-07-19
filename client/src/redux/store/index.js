@@ -9,6 +9,7 @@ import logger from 'redux-logger'
 const persistConfig = {
   key: 'root',
   storage,
+  
 }
 
 const reducer = combineReducers({

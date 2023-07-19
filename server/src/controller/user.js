@@ -56,13 +56,22 @@ const jwt = require('jsonwebtoken');
 
 
 const getAllUser =  async (req,res)=>{
-   const data = await User.find()
+   const data = await User.find().select('email role')
    if(data){
      res.json({
      userList: data
      })
    }
  }
+
+ const getAllUsersPhone =  async (req,res)=>{
+  const data = await User.find().select('phoneNumber')
+  if(data){
+    res.json({
+    userList: data
+    })
+  }
+}
 
  const getUserDetailsById = async (req,res)=>{
    const data = await User.findById(req.params.id)
@@ -83,4 +92,4 @@ const getAllUser =  async (req,res)=>{
 //
 }
  
-  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword}
+  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword,getAllUsersPhone}

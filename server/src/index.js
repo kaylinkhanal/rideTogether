@@ -1,57 +1,93 @@
-const express = require('express')
-const app = express()
-const http = require('http');
-const server = http.createServer(app);
-const Rides = require('./model/rides')
-const { Server } = require("socket.io");
-const io = new Server(server, {
-  cors: {
-  origin:"*"
+
+var express = require("express")
+var { graphqlHTTP } = require("express-graphql")
+var { GraphQLObjectType, GraphQLString, GraphQLID,GraphQLList, GraphQLSchema } = require("graphql")
+const dbConnect = require('./dbConnect/connection')
+const Users = require('./model/user')
+//defining the types 
+dbConnect()
+const UserType = new GraphQLObjectType({
+  name: "User",
+  fields: {
+    id: {type: GraphQLID},
+    email: {type: GraphQLString},
+    password: {type: GraphQLString}
   }
-});
-const cors =require('cors')
-require('dotenv').config()
-app.use(express.json())
-app.use(cors())
-
-const connectDb = require('./dbConnect/connection')
-const productRoute=require('./routes/product')
-const userRoute=require('./routes/user')
-const vehicleRoute=require('./routes/vehicles')
-const rideRoute = require('./routes/rides')
-
-
-
-io.on('connection', (socket) => {
-  
-  
-
-  socket.on('rideRequest',async(rideDetails)=> {
-    const res= await Rides.create(rideDetails)
-    const rides = await Rides.find().populate('userListId')
-    io.emit('rideRequest',rides)
-  })
-
-
-  socket.on('acceptRides',async(details)=> {
-console.log(details._id)
-  details.shyam = 'hari'
-  console.log(details,"@@")
-  //
-  await Rides.findByIdAndUpdate(  '64ae31d5bf06d01fe8536536',{$set: {nmae:"hari"}})
-  })
-
-
-});
-
-
-connectDb()
-app.use("/",productRoute)
-app.use("/", userRoute)
-app.use("/", vehicleRoute)
-app.use("/", rideRoute)
-
-
-server.listen(process.env.PORT, () => {
-  console.log(`Example app listening on port ${process.env.PORT}`)
 })
+
+// creating a query
+const Query =  new GraphQLObjectType({
+  name: "RootQueryType",
+  fields: {
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(){
+        return Users.find()
+      }
+     },
+     user: {
+      type: UserType,
+      args: {id: {type: GraphQLID}},
+      resolve(parent, args){
+        return Users.findById(args.id)
+      }
+     },
+  }
+})
+
+
+//creating a mutation
+const Mutation =  new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        email: {type: GraphQLString},
+        password: {type: GraphQLString}
+      },
+      resolve(parent, args){
+        return Users.create(args)
+      }
+     },
+
+
+    updateUser:{
+      type: UserType,
+      args: {
+        id: {type: GraphQLID},
+        email: {type: GraphQLString},
+      },
+      resolve(parent, args){
+        return Users.findByIdAndUpdate(args.id, {$set: {email: args.email}})
+      }
+     },
+
+     deleteUser:{
+      type: UserType,
+      args: {
+        id: {type: GraphQLID},
+      },
+      resolve(parent, args){
+        return Users.findByIdAndDelete(args.id)
+      }
+     },
+    
+  }
+})
+
+
+
+
+var app = express()
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: new GraphQLSchema({query: Query, mutation:Mutation}),
+    graphiql: true,
+  })
+)
+app.listen(8080)
+console.log("Running a GraphQL API server at localhost:8080/graphql")
+
+

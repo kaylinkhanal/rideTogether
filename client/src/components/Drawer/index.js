@@ -86,7 +86,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft(props) {
   const router = useRouter()
-  const { role } = useSelector(state => state.user)
+  const { role ,id} = useSelector(state => state.user)
   const theme = useTheme();
   const [openNotification, setOpenNotification] = useState(false)
   const [open, setOpen] = useState(false);
@@ -146,8 +146,10 @@ socket.emit('acceptRides',acceptRides)
                 <div >
                   {props?.recentRequest()?.length> 0 && props?.recentRequest()?.map((item)=>{
                     return   <div style={{padding:'10px'}}>
-                      {item.userListId?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} 
-                      <button onClick={()=> sendReadyRequest(item)}>Ready</button>
+                      {item.idDetails?.phoneNumber} has sent request from {item?.pickupAddress?.substring(0, 15) + '...'} to {item.dropAddress?.substring(0, 15) + '...'} 
+                      <button onClick={()=>{
+                        item.idDetails = id
+                        sendReadyRequest(item)}}>Ready</button>
                       <br/></div>
                   })}
                 </div>

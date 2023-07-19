@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../../../styles/map.module.css'
 import { getDistance } from 'geolib';
@@ -23,14 +23,37 @@ function MapDetails() {
   },[])
     const { userVehicleType, id} = useSelector(state=>state.user)
     const { pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate} = useSelector(state=>state.location)
-
+    const [rideRequests, setRideRequests] = useState([])
+    const [ requestSent, setRequestSent]= useState(false)
+    const [currentTime, setCurrentTime]= useState(0)
   const distance = getDistance(pickupCoord, dropCoord) / 1000;
-  const sendRideRequest = ()=>{
-
-    socket.emit('rideRequest', {pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate, userVehicleType,userListId:id})
+  useEffect(()=>{
+    socket.on('rideApprovals', (data)=>{
+      const existingRequest = [...rideRequests]
+      existingRequest.push(data)
+      setRideRequests(existingRequest)
+    })
+  })
+  const confirmAcceptedRide = (item)=> {
+    socket.emit('confirmAcceptedRide', item)
   }
+  const sendRideRequest = ()=>{
+    setRequestSent(true)
+    socket.emit('rideRequest', {pickupCoord, dropCoord,dropAddress , pickupAddress,requestDate, userVehicleType,idDetails:id})
+  }
+
+  const sendRideRequestAgain = ()=> {
+    setCurrentTime(0)
+  }
+
+  useEffect(()=>{
+    setInterval(()=>{
+      setCurrentTime(currentTime+1)
+    },1000)
+  },[currentTime])
   return (
     <div className={styles.body}>
+ 
       <div className={styles.rideDetails}>
         <div className={styles.userDetails}>
           <h2 className={styles.heading}>Ride Details </h2>
@@ -74,12 +97,22 @@ function MapDetails() {
            
           </table>
           <div className={styles.buttons}>
+              {rideRequests.map((item)=>{
+            return <div style={{padding:'10px', color:'#fff'}}>{item.phoneNumber } has accepted this ride
+            <button onClick={()=>confirmAcceptedRide(item)} className={styles.confirm}>accepted</button>
+            </div>
+          })}
            <button className={styles.cancel}
               onClick={() => router.push('/')}>Cancel Request</button>
-                <div>
-        <button
+                <div style={{color:'white'}}>
+                 {currentTime}
+            {!requestSent  && currentTime<10 ? (
+              <button
+                  className={styles.confirm}
+              onClick={sendRideRequest}>Send Ride Request</button>
+            ):   <button
             className={styles.confirm}
-        onClick={sendRideRequest}>Send Ride Request</button>
+        onClick={sendRideRequestAgain}>Send This Request Again</button>} 
       </div>
              
            </div>
@@ -87,6 +120,8 @@ function MapDetails() {
 
       <div className={styles.map}>
       <Map showAllButtons={false} containerStyle={{width: '50vw',height: '80vh', borderRadius: '10px'}}/>
+ 
+     
         <div>
        
 

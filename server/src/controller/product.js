@@ -6,11 +6,15 @@ const getAllProducts = async (req,res)=>{
   }
 
  const addNewProduct=  async (req,res)=>{
+  try{
     const data = await Product.create(req.body)
     if(data) {
       res.json({
         msg: "product add success"
       })
     }
+  }catch(err){
+    console.log(err)
+  }
   }
   module.exports = {getAllProducts, addNewProduct}

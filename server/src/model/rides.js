@@ -4,12 +4,12 @@ const ridesSchema =  new mongoose.Schema({
   pickupCoord: {type: Object}, 
   dropCoord:  {type: Object}, 
   pickupAddress:  {type: String}, 
-  shyam:  {type: String}, 
   dropAddress:  {type: String}, 
   userVehicleType: {type: Object},
-  userListId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  idDetails: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   rideStatus:    {type: String, default:'Pending'}, 
   riderIDReadyToProceed:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  requestedId: {type: String},
 
   },{
     timestamps: true
