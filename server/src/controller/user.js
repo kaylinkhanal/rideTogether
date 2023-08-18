@@ -26,7 +26,6 @@ const jwt = require('jsonwebtoken');
       // getnerate a token for the user
       if(isMatched){
         const token = jwt.sign({ phoneNumber:  req.body.phoneNumber }, process.env.SECRET_KEY);
-        console.log(token)
         res.json({
         isLoggedIn: true,
         phoneNumber: data.phoneNumber,
@@ -72,15 +71,31 @@ const getAllUser =  async (req,res)=>{
      })
    }
  }
+ 
+const changePassword = async (req,res)=>{
+  //first we need to find if the phoneNumber entered exists
+  const data = await User.findOne({phoneNumber: req.body.phoneNumber})
+  // old password should match db password
+  const comparePassword = await bcrypt.compare(req.body.oldPassword, data.password)
+  if (comparePassword && data){
+    const newHashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
+    req.body.newPassword = newHashPassword
+    const updatedPassword = await User.findByIdAndUpdate(
+      {_id: req.params.id},
+      {password: newHashPassword}
+      )
+    if (updatedPassword){ 
+      res.json({
+        msg: 'change password'
+      })
+    }
+  }else{
+    res.json({
+      msg: 'invalid password'
+    })
+  }
 
- const changePassword = async (req,res)=>{
-  // {
-  //   oldPassword: 'hello@123',
-  //   newPassword: 'hello@123456'
-  // }
-  //compare oldPassword with current valid password
-//true=> 
-//
 }
  
-  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword}
+
+  module.exports = {registerNewUser,loginUser,getAllUser,getUserDetailsById,changePassword, changePasswordById}

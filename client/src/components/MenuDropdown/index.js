@@ -11,6 +11,7 @@ import { deepOrange, deepPurple } from '@mui/material/colors';
 import styles from '@/styles/users.module.css'
 import CssBaseline from '@mui/material/CssBaseline';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router'
 
 export default function BasicMenu() {
   const router = useRouter()
@@ -60,7 +61,7 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={() => router.push('/profile')}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={()=>router.push('/myaccount/')}>My account</MenuItem>
         <MenuItem onClick={()=>dispatch(resetUser())}>Logout</MenuItem>
       </Menu>
     </div>
